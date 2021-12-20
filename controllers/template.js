@@ -26,6 +26,9 @@ module.exports = (app) => {
 
     let login = await Atendente.buscarLogin(email, senha);
 
+    console.log(login);
+    console.log(email + " " + senha);
+
     if (email.length && senha.length) {
       if (!login.length) {
         res.redirect("/?erro=" + "nao foi possivel altenticar");
@@ -56,5 +59,9 @@ module.exports = (app) => {
     await Atendente.cadastrarAtendente(req.query);
 
     res.status(200).json("cadastro feito com sucesso");
+  });
+
+  app.get("/:id", async function (req, res) {
+    res.render("pages/perfil", { id: req.params.id });
   });
 };

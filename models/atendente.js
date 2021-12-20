@@ -77,6 +77,23 @@ class Atendente {
       }
     });
   }
+
+  excluirAtendente(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `DELETE FROM atendentes WHERE id=${id}`;
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+
+          resolve("cadastro inserido com sucesso");
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 module.exports = new Atendente();

@@ -105,14 +105,16 @@
 
 
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="setor">
+                                                                aria-label="Default select example" name="setor"
+                                                                id="setor">
                                                                 <option selected>Opcional</option>
-                                                                <option value="1">Administrador</option>
-                                                                <option value="2">Agendamento</option>
-                                                                <option value="3">Comercial</option>
-                                                                <option value="4">Financeiro</option>
-                                                                <option value="5">Periodo da noite</option>
-                                                                <option value="6">Suporte</option>
+                                                                <option value="administrador">Administrador</option>
+                                                                <option value="agendamento">Agendamento</option>
+                                                                <option value="comercial">Comercial</option>
+                                                                <option value="financeiro">Financeiro</option>
+                                                                <option value="periodo da noite">Periodo da noite
+                                                                </option>
+                                                                <option value="Suporte">Suporte</option>
                                                             </select>
 
                                                         </div>
@@ -151,9 +153,12 @@
                                                 <p>
                                                     <%= atendente[i].email %>
                                                 </p>
-                                                <button class="btn btn-primary"> <i class="fas fa-cog me-1"></i>
-                                                    Gerenciar
-                                                </button>
+                                                <a href="/<%= atendente[i].id %>">
+                                                    <button class="btn btn-primary"> <i class="fas fa-cog me-1"></i>
+                                                        Gerenciar
+                                                    </button>
+                                                </a>
+
                                             </div>
                                         </div>
 

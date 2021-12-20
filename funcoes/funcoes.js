@@ -4,6 +4,7 @@ const Chat = require("../models/chat");
 const moment = require("moment");
 const { mensagem } = require("../models/chat");
 const Protocolo = require("../models/protocolos");
+const Notificacoes = require("../models/notificacoes");
 
 class Funcoes {
   whatsapp = null;
@@ -32,6 +33,7 @@ class Funcoes {
         };
 
         Chat.mensagem(mensagem);
+        Notificacoes.inserirNotificacao({ fone: event.from });
 
         this.io.sockets.emit("wppMessage", {
           author: event.from,

@@ -87,7 +87,7 @@ module.exports = (app) => {
 
   app.post("/removerNotificacao", async function (req, res) {
     Notificacao.removerNotificacoes(req.query.fone);
-    res.status(200).json();
+    res.status(200).json("notificacoes removidas com sucesso");
   });
 
   app.post("/contarNotificacoes", async function (req, res) {
