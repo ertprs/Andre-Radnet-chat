@@ -14,7 +14,7 @@ module.exports = (app) => {
     let canal = process.env.CANAL;
     let protocolo = process.env.PROTOCOLO;
     let conectado = process.env.TEL_FONE_CONECTADO;
-    let destino = process.env.TEL_FONE;
+
     let ip_servidor = process.env.IP_SERVIDOR;
 
     // passando as informações para o front
@@ -24,7 +24,6 @@ module.exports = (app) => {
       protocolo: protocolo,
       numeroAtendente: numeroAtendente,
       conectado: conectado,
-      destino: destino,
       ip_servidor: ip_servidor,
     });
   });

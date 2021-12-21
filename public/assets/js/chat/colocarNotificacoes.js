@@ -27,6 +27,7 @@ export function colocarNotificacoes() {
           </div>`;
 
         $(element).append(notify);
+        s;
       }
     }
   });

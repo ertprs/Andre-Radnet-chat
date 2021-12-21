@@ -6,6 +6,7 @@ class Tabelas {
     this.criarAtendente();
     this.criarProtocolo();
     this.criarNotificacoes();
+    this.criarCanais();
   }
 
   criarChat() {
@@ -74,6 +75,25 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela notificacoes criada com sucesso");
+      }
+    });
+  }
+
+  criarCanais() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS canais(
+      id int NOT NULL AUTO_INCREMENT,
+      nome varchar(255),
+      fone varchar(255),
+      status varchar(255),
+      PRIMARY KEY(id)
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela canais criada com sucesso");
       }
     });
   }

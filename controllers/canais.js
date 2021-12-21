@@ -1,0 +1,35 @@
+const Canais = require("../models/canais");
+
+module.exports = (app) => {
+  app.get("/canais", async function (req, res) {
+    let ip_servidor = process.env.IP_SERVIDOR;
+    let conectado = process.env.TEL_FONE_CONECTADO;
+
+    let canais = await Canais.buscarCanais();
+
+    res.render("pages/canais/canais", {
+      conectado: conectado,
+      ip_servidor: ip_servidor,
+      canais: canais,
+    });
+  });
+
+  app.post("/cadastrarCanal", async function (req, res) {
+    console.log(req.query);
+    await Canais.inserirCanal(req.query);
+    res.status(200).json("canal cadastrado");
+  });
+
+  app.post("/editarCanal", async function (req, res) {
+    console.log(req.query);
+    let canal = { nome: req.query.nome, fone: req.query.fone };
+    await Canais.editarCanal(canal, req.query.fone_anterior);
+    res.status(200).json("canal editado");
+  });
+
+  app.post("/excluirCanal", async function (req, res) {
+    console.log(req.query);
+    await Canais.excluirCanal(req.query.fone);
+    res.status(200).json("canal excluido");
+  });
+};
