@@ -8,12 +8,10 @@ module.exports = (app) => {
     res.redirect("/");
   });
 
-  app.post("/conectar", function (req, res) {
-    //console.log(req.query);
+  app.post("/conectar", async function (req, res) {
+    let QrCode = await funcoes.conectar();
 
-    funcoes.conectar();
-
-    res.redirect("/home");
+    res.status(200).json(QrCode);
   });
 
   app.get("/", function (req, res) {

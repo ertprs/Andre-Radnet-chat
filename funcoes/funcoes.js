@@ -10,52 +10,83 @@ class Funcoes {
   whatsapp = null;
   socket = null;
   io = null;
+  base64QR = null;
 
   conectar() {
-    console.log("functions conectar");
-    new superchats.create("Marketing", {
-      license: process.env.SUPER_TOKEN,
-    }).then(async (client) => {
-      this.whatsapp = client;
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("functions conectar");
 
-      await client.onMessage((event) => {
-        console.log(event);
+        new superchats.create(
+          "Marketing",
 
-        const mensagem = {
-          session: event.session,
-          from_number: event.from,
-          to_number: event.device,
-          content: event.content,
-          type: event.type,
-          created_at: moment
-            .unix(event.timestamp)
-            .format("YYYY-MM-DD HH:mm:ss"),
-        };
+          {
+            license: process.env.SUPER_TOKEN,
+            welcomeScreen: false,
+            connectTest: 10_000,
+            logQr: false,
+          },
+          (base64QR) => {
+            this.base64QR = base64QR;
+            if (base64QR) {
+              resolve(base64QR);
+            }
+          },
+          (statusSession) => {
+            console.log("Status Session:", statusSession);
+            if (statusSession.response == "isLogged") {
+              console.log("entrou aqui");
+              resolve("conectado");
+            }
+            if (statusSession.response == "isConnected") {
+              console.log("entrou aqui");
+              resolve("conectado");
+            }
+          }
+        ).then(async (client) => {
+          console.log("dispositivo conectado");
+          this.whatsapp = client;
 
-        Chat.mensagem(mensagem);
-        Notificacoes.inserirNotificacao({ fone: event.from });
+          await client.onMessage((event) => {
+            console.log(event);
 
-        this.io.sockets.emit("wppMessage", {
-          author: event.from,
-          message: event.content,
+            const mensagem = {
+              session: event.session,
+              from_number: event.from,
+              to_number: event.device,
+              content: event.content,
+              type: event.type,
+              created_at: moment
+                .unix(event.timestamp)
+                .format("YYYY-MM-DD HH:mm:ss"),
+            };
+
+            Chat.mensagem(mensagem);
+            Notificacoes.inserirNotificacao({ fone: event.from });
+
+            this.io.sockets.emit("wppMessage", {
+              author: event.from,
+              message: event.content,
+            });
+
+            console.log(mensagem);
+          });
+
+          await client.onAck((event) => {
+            console.log(event);
+          });
+
+          await client.onPresence((event) => {
+            console.log(event);
+          });
+
+          await client.onDelete((event) => {
+            console.log(event);
+          });
         });
-
-        console.log(mensagem);
-      });
-
-      await client.onAck((event) => {
-        console.log(event);
-      });
-
-      await client.onPresence((event) => {
-        console.log(event);
-      });
-
-      await client.onDelete((event) => {
-        console.log(event);
-      });
-
-      await client.forceStatusOn();
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
