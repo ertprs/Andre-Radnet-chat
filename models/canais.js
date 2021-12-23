@@ -71,6 +71,42 @@ class Canais {
       }
     });
   }
+
+  editarStatus(status, fone_anterior) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `UPDATE canais SET status='${status}' WHERE fone=${fone_anterior}`;
+
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          resolve("status atualizado com sucesso");
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  retornarSessao(fone) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `SELECT * FROM canais WHERE fone=${fone}`;
+
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var canal = JSON.parse(JSON.stringify(resultados));
+          console.log(canal);
+          resolve(canal);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 module.exports = new Canais();

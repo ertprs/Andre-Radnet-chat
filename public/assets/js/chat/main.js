@@ -6,7 +6,7 @@ import { preventF5 } from "./preventF5.js";
 import { recarregarDiv } from "./recarregar-div.js";
 import { mensagensInternas } from "./mensagensInternas.js";
 import { esconderNotificacao } from "./esconderNotificacao.js";
-import { escoderChat } from "./esconderChat.js";
+import { esconderChat } from "./esconderChat.js";
 import { colocarNotificacoes } from "./colocarNotificacoes.js";
 
 let socket = new Socket();
@@ -16,7 +16,7 @@ let conversas = new Conversas();
 //conecta ao websocket
 socket.conectarSocketIo(ip_servidor, conversas, retornar);
 
-escoderChat();
+esconderChat();
 
 // refatorar codigo front-end
 conversas.procurarConversas(ip_servidor);
@@ -27,7 +27,7 @@ conversas.adicionarEventoConversa(ip_servidor, retornar);
 //retorna a conexão do websocket para usar em outras funções
 let ipSocket = socket.retornarSocket();
 
-enviarMensagem(conectado, retornar, ipSocket, ip_servidor);
+enviarMensagem(retornar, ipSocket, ip_servidor);
 recarregarDiv();
 mensagensInternas();
 esconderNotificacao();

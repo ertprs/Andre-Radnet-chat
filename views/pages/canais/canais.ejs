@@ -137,7 +137,7 @@
                                                                     <%= canais[i].nome %> - <%= canais[i].fone %>
                                                                 </h3>
                                                                 <p>
-                                                                    (61) <%= canais[i].fone %>
+                                                                    <%= canais[i].fone %>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -173,9 +173,9 @@
                                                                                         <% if
                                                                                             (canais[i].status=="conectado"
                                                                                             ) { %>
-                                                                                            <a class="dropdown-item"
+                                                                                            <a class="dropdown-item desconectar"
                                                                                                 href=""
-                                                                                                id="desconectar">
+                                                                                                id="<%= canais[i].fone %>">
                                                                                                 <span
                                                                                                     class="text-primary">
                                                                                                     <i
@@ -184,9 +184,9 @@
                                                                                                 </span>
                                                                                             </a>
                                                                                             <% }else{ %>
-                                                                                                <a class="dropdown-item"
+                                                                                                <a class="dropdown-item conectar"
                                                                                                     href=""
-                                                                                                    id="conectar">
+                                                                                                    id="<%= canais[i].nome %>-<%= canais[i].fone %>">
                                                                                                     <span
                                                                                                         class="text-success">
                                                                                                         <i
@@ -444,11 +444,21 @@
 
         let qrcode;
 
-        document.querySelectorAll("#conectar").forEach((item) => {
+        document.querySelectorAll(".conectar").forEach((item) => {
             item.addEventListener("click", function (event) {
                 event.preventDefault();
+
+                const canalArray = item.id.split("-");
+
+                editarCanal = {
+                    nome: canalArray[0],
+                    fone_anterior: canalArray[1],
+                };
+                console.log(canalArray);
+
+
                 var settings = {
-                    "url": `${ip_servidor}/conectar`,
+                    "url": `${ip_servidor}/conectar?sessao=${editarCanal.nome}&fone=${editarCanal.fone_anterior}`,
                     "method": "POST",
                     "timeout": 0,
                     "async": false,
@@ -459,21 +469,44 @@
                     qrcode = response;
                 });
 
-                let imgQrcode = `
-                <img width="100%" src="${qrcode}">
-            `;
-                divqr.style.visibility = "visible";
+                if (qrcode == "conectado") {
+                    document.location.reload(true);
+                } else {
+                    let imgQrcode = `
+                                <img width="100%" src="${qrcode}">
+                            `;
+                    divqr.style.visibility = "visible";
 
-                $(".qrcode").append(imgQrcode);
+                    $(".qrcode").append(imgQrcode);
 
-                let devices = document.querySelector("#devices");
+                    let devices = document.querySelector("#devices");
 
-                devices.style.visibility = "hidden";
+                    devices.style.visibility = "hidden";
+                }
+
+
 
             })
         });
 
+        document.querySelectorAll(".desconectar").forEach((item) => {
 
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                var settings = {
+                    "url": `${ip_servidor}/desconectarCanal?status=desconectado&fone=${item.id}`,
+                    "method": "POST",
+                    "timeout": 0,
+                };
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });
+
+                document.location.reload(true);
+            })
+        });
 
     </script>
 

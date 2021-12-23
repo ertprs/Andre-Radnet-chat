@@ -9,7 +9,7 @@ module.exports = (app) => {
   });
 
   app.post("/conectar", async function (req, res) {
-    let QrCode = await funcoes.conectar();
+    let QrCode = await funcoes.conectar(req.query.sessao, req.query.fone);
 
     res.status(200).json(QrCode);
   });

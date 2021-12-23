@@ -25,7 +25,10 @@ export default class Conversas {
     let numerosUnicos = [];
 
     conversas.forEach((element) => {
-      if (numerosUnicos.includes(element.from_number)) {
+      if (
+        numerosUnicos.includes(element.from_number + element.to_number) ||
+        numerosUnicos.includes(element.to_number + element.from_number)
+      ) {
         for (let index = 0; index < ultimaConversa.length; index++) {
           if (
             ultimaConversa[index].id < element.id &&
@@ -35,12 +38,13 @@ export default class Conversas {
           }
         }
       } else {
-        numerosUnicos.push(element.from_number);
+        numerosUnicos.push(element.from_number + element.to_number);
         ultimaConversa.push({
           id: element.id,
           from_number: element.from_number,
+          to_number: element.to_number,
           content: element.content,
-          created_at: element.created_at,
+          created_at: moment(element.created_at).format("DD-MM-YYYY HH:mm"),
         });
       }
     });
@@ -48,19 +52,19 @@ export default class Conversas {
     ultimaConversa.forEach((element) => {
       let templateConversa = `
      
-      <div class='d-flex pop-chat mb-1 clientesConversa' id="${element.from_number}">
+      <div class='d-flex pop-chat mb-1 clientesConversa' id="${element.from_number}-${element.to_number}">
           <div class='d-flex justify-content-center align-items-center flex-grow-1'>
               <img src='assets/img/transferir.png' class='img-chat m-2'>
           </div>
        
           <div class='w-100 m-2'>
               <div class='d-flex justify-content-between data-hora'>
-                  <p> ${element.from_number} </p>
-                  <p> ${element.created_at} </p>
+                  <p class="text-light">De: ${element.from_number} <br> Para: ${element.to_number} </p>
+                  <p class="text-light pe-2"> ${element.created_at} </p>
               </div>
     
               <div class='mensagem'>
-                  <p> ${element.content} </p>
+                  <p class="text-light" style=" max-width: 30ch; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;"> ${element.content} </p>
               </div>
 
     
@@ -78,9 +82,20 @@ export default class Conversas {
   adicionarEventoConversa(ip_servidor, retornar) {
     document.querySelectorAll(".clientesConversa").forEach((item) => {
       item.addEventListener("click", function () {
-        retornar.pegarNumero(item.id);
+        const toFromId = item.id.split("-");
+
+        let origemDestino = {
+          from_number: toFromId[0],
+          to_number: toFromId[1],
+        };
+
+        retornar.pegarNumero(
+          origemDestino.from_number,
+          origemDestino.to_number
+        );
+
         var settings = {
-          url: `${ip_servidor}/recuperarMensagens?toNumber=${item.id}`,
+          url: `${ip_servidor}/recuperarMensagens?toNumber=${origemDestino.from_number}&fromNumber=${origemDestino.to_number}`,
           method: "POST",
           timeout: 0,
         };
@@ -93,7 +108,7 @@ export default class Conversas {
         telaChat.style.visibility = "visible";
 
         var settings = {
-          url: `${ip_servidor}/removerNotificacao?fone=${item.id}`,
+          url: `${ip_servidor}/removerNotificacao?fone=${origemDestino.from_number}`,
           method: "POST",
           timeout: 0,
           async: false,
@@ -105,10 +120,12 @@ export default class Conversas {
 
         $("#buscar").prop("disabled", false);
 
-        item.children[2].style.visibility = "hidden";
-        let valorDiv = item.children[2].children[0].children[0].textContent;
-        let resultado = parseInt(valorDiv) + 1;
-        item.children[2].children[0].children[0].innerHTML = "";
+        if (item.children[2]) {
+          item.children[2].style.visibility = "hidden";
+          let valorDiv = item.children[2].children[0].children[0].textContent;
+          let resultado = parseInt(valorDiv) + 1;
+          item.children[2].children[0].children[0].innerHTML = "";
+        }
       });
     });
   }

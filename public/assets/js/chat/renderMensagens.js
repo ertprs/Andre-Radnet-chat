@@ -1,6 +1,7 @@
 import { executarAudioRecebimento } from "./executarAudioRecebimento.js";
+import RetornarNumero from "./retornarNumero.js";
 
-export function renderMessage(message, origem) {
+export function renderMessage(message, origem, numero) {
   //fazer o template da mensagem
 
   let templateYou = `
@@ -55,7 +56,7 @@ export function renderMessage(message, origem) {
             </div>
 `;
 
-  if (message.author == conectado) {
+  if (message.author == numero.conectado) {
     $(".mensagens-chat").append(templateYou);
   } else {
     $(".mensagens-chat").append(templeteOther);

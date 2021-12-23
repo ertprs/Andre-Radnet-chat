@@ -18,7 +18,11 @@ export default class Socket {
       div.empty();
 
       for (let index = 0; index < messages.length; index++) {
-        renderMessage(messages[index]);
+        renderMessage(
+          messages[index],
+          "funcionario",
+          retornar.retornarNumero()
+        );
       }
 
       mostrarEsconderOpcoes();
@@ -26,11 +30,6 @@ export default class Socket {
       responderMensagem();
     });
 
-    /*
-    this.socket.on("receivedMessage", function (message) {
-      renderMessage(message);
-    });
-*/
     this.socket.on("wppMessage", function (message) {
       console.log("socket / wppmessage");
 

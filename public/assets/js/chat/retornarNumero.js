@@ -1,12 +1,14 @@
 export default class RetornarNumero {
-  numero = null;
+  atendimento = null;
 
-  pegarNumero(numeroFunction) {
-    console.log(numeroFunction);
-    this.numero = numeroFunction;
+  pegarNumero(param_cliente, param_conectado) {
+    this.atendimento = {
+      cliente: param_cliente,
+      conectado: param_conectado,
+    };
   }
   retornarNumero() {
-    console.log(this.numero);
-    return this.numero;
+    console.log(this.atendimento);
+    return this.atendimento;
   }
 }

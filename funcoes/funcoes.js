@@ -5,6 +5,7 @@ const moment = require("moment");
 const { mensagem } = require("../models/chat");
 const Protocolo = require("../models/protocolos");
 const Notificacoes = require("../models/notificacoes");
+const Canais = require("../models/canais");
 
 class Funcoes {
   whatsapp = null;
@@ -12,13 +13,13 @@ class Funcoes {
   io = null;
   base64QR = null;
 
-  conectar() {
+  conectar(sessao, fone) {
     return new Promise((resolve, reject) => {
       try {
         console.log("functions conectar");
 
         new superchats.create(
-          "Marketing",
+          sessao,
 
           {
             license: process.env.SUPER_TOKEN,
@@ -32,19 +33,20 @@ class Funcoes {
               resolve(base64QR);
             }
           },
-          (statusSession) => {
+          async (statusSession) => {
             console.log("Status Session:", statusSession);
             if (statusSession.response == "isLogged") {
               console.log("entrou aqui");
+              await Canais.editarStatus("conectado", fone);
               resolve("conectado");
             }
             if (statusSession.response == "isConnected") {
               console.log("entrou aqui");
+              await Canais.editarStatus("conectado", fone);
               resolve("conectado");
             }
           }
         ).then(async (client) => {
-          console.log("dispositivo conectado");
           this.whatsapp = client;
 
           await client.onMessage((event) => {

@@ -1,4 +1,5 @@
 const Canais = require("../models/canais");
+const funcoes = require("../funcoes/funcoes");
 
 module.exports = (app) => {
   app.get("/canais", async function (req, res) {
@@ -31,5 +32,18 @@ module.exports = (app) => {
     console.log(req.query);
     await Canais.excluirCanal(req.query.fone);
     res.status(200).json("canal excluido");
+  });
+
+  app.post("/desconectarCanal", async function (req, res) {
+    console.log(req.query);
+    await Canais.editarStatus(req.query.status, req.query.fone);
+    funcoes.logout();
+    res.status(200).json("canal editado");
+  });
+
+  app.post("/retornarSessao", async function (req, res) {
+    console.log(req.query);
+    let canal = await Canais.retornarSessao(req.query.fone);
+    res.status(200).json(canal);
   });
 };

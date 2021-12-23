@@ -4,10 +4,10 @@ class Mensagens {
   messages = [];
   conversas = [];
 
-  buscarConversasNumero(numero) {
+  buscarConversasNumero() {
     return new Promise((resolve, reject) => {
       try {
-        const sql = `SELECT * FROM chat WHERE to_number = ${numero} ORDER BY id ASC`;
+        const sql = `SELECT * FROM chat ORDER BY id ASC`;
 
         conexao.query(sql, (erro, resultados) => {
           if (erro) {

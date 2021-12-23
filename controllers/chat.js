@@ -38,20 +38,12 @@ module.exports = (app) => {
     res.status(200).json("mensagem enviada");
   });
 
-  /*
-  app.post("/sendmessagebutton", function (req, res) {
-    functions.sendmessagebutton();
-
-    res.status(200).json("ok");
-  });
-*/
-
   // Faz a busca das mensagens no chat
   app.post("/recuperarMensagens", async function (req, res) {
     console.log("api /recuperarMensagens");
     let mensagens = await Mensagens.buscarMessages(
       req.query.toNumber,
-      process.env.TEL_FONE_CONECTADO
+      req.query.fromNumber
     );
     //let mensagens = Messages.retornarDados();
 
@@ -63,9 +55,7 @@ module.exports = (app) => {
   //
   app.post("/carregarConversas", async function (req, res) {
     console.log("api /carregarConversas");
-    let conversas = await Mensagens.buscarConversasNumero(
-      process.env.TEL_FONE_CONECTADO
-    );
+    let conversas = await Mensagens.buscarConversasNumero();
     //let conversas = Messages.retornarConversas();
     res.status(200).json(conversas);
   });

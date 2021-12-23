@@ -1,48 +1,55 @@
 import { renderMessage } from "./renderMensagens.js";
 
-export function enviarMensagem(
-  conectado,
-  numberDestino,
-  ipSocket,
-  ip_servidor
-) {
+export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
   $("#chat").submit(function (event) {
     event.preventDefault();
 
     console.log(numberDestino.retornarNumero());
 
-    var author = conectado;
+    var author = numberDestino.retornarNumero().conectado;
     var message = $("input[name=texto]").val();
-    var to_number = numberDestino.retornarNumero();
+    var to_number = numberDestino.retornarNumero().cliente;
     var session = "Marketing";
     var type = "chat";
     var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+
+    var settings = {
+      url: `http://${ip_servidor}/retornarSessao?fone=${
+        numberDestino.retornarNumero().conectado
+      }`,
+      method: "POST",
+      timeout: 0,
+      async: false,
+    };
+
+    let resposta = null;
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      resposta = response;
+    });
 
     if (message.length) {
       var messageObject = {
         author: conectado,
         message: message,
+        session: resposta.nome,
       };
 
       renderMessage(messageObject);
       ipSocket.emit("sendMessage", messageObject);
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    var settings = {
+      url: `http://${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}`,
+      method: "POST",
+      timeout: 0,
+    };
 
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        console.log(this.responseText);
-      }
+    $.ajax(settings).done(function (response) {
+      console.log(response);
     });
 
-    xhr.open(
-      "POST",
-      `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}`
-    );
-
-    xhr.send();
     document.getElementById("buscar").value = "";
 
     let audio = new Audio("assets/audios/envio.mp3");
