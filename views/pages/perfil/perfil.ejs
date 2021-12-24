@@ -24,7 +24,8 @@
                             <div class="col-xl-9">
                                 <div class="row p-3 mt-3 d-flex justify-content-between">
                                     <div class="col-5 ">
-                                        <h2>Gerenciando {fulano}</h2>
+                                        <h2>Gerenciando <%= usuario.nome %>
+                                        </h2>
                                     </div>
                                     <div class="col-5 d-flex justify-content-end align-items-center">
                                         <a href="/atendentes"> <button class="btn btn-primary btn-sm"><i
@@ -38,7 +39,7 @@
                                     <div class="col">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">Nome</span>
-                                            <input type="text" class="form-control" aria-label="Username"
+                                            <input type="text" class="form-control" aria-label="Username" placeholder=""
                                                 aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -110,7 +111,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Recever notificacões</span>
+                                            <span class="input-group-text" id="basic-addon1">Receber notificacões</span>
                                             <input type="text" class="form-control" aria-label="Username"
                                                 aria-describedby="basic-addon1">
                                         </div>
@@ -182,13 +183,16 @@
 
     </div>
     <script type="text/javascript">
+        const ip_servidor = "<%= ip_servidor %>";
+    </script>
+    <script type="text/javascript">
 
         let excluir = document.querySelector(".excluir");
 
         excluir.addEventListener("click", function () {
 
             var settings = {
-                "url": `http://localhost:3000/excluir-atendente?id=${excluir.id}`,
+                "url": `${ip_servidor}/excluir-atendente?id=${excluir.id}`,
                 "method": "POST",
                 "timeout": 0,
             };

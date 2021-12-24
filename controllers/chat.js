@@ -17,6 +17,12 @@ module.exports = (app) => {
 
     let ip_servidor = process.env.IP_SERVIDOR;
 
+    /*
+    Atendente.buscarAtendente(process.env.ID_USUARIO);
+    let atendente = Atendente.retornarAtendente();
+    console.log(atendente);
+*/
+
     // passando as informações para o front
     // rederizando o front pelo ejs
     res.render("pages/chat/index", {

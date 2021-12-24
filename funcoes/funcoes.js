@@ -12,6 +12,7 @@ class Funcoes {
   socket = null;
   io = null;
   base64QR = null;
+  usuarioLogado = null;
 
   conectar(sessao, fone) {
     return new Promise((resolve, reject) => {
@@ -97,6 +98,14 @@ class Funcoes {
     if (this.whatsapp) {
       return this.whatsapp.sendText(message.to_number, message.content);
     }
+  }
+
+  inserirUsuarioLogado(usuario) {
+    this.usuarioLogado = usuario;
+  }
+
+  retornarUsuarioLogado() {
+    return this.usuarioLogado;
   }
 
   logout() {

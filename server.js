@@ -50,6 +50,7 @@ const io = new Server(httpServer, {
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/perfil", express.static(path.join(__dirname, "public")));
 
 //novas mudanças inseridas
 app.set("view engine", "ejs");

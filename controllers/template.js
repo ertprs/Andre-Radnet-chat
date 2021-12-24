@@ -1,10 +1,14 @@
 const funcoes = require("../funcoes/funcoes");
 const Atendente = require("../models/atendente");
+const Logados = require("../models/logados");
 require("dotenv").config();
 
 module.exports = (app) => {
-  app.get("/logout", function (req, res) {
+  app.get("/logout", async function (req, res) {
     funcoes.logout();
+    let logado = await funcoes.retornarUsuarioLogado();
+    console.log(logado);
+    Logados.mudarStatus({ status: "desconectado" }, logado[0].nome);
     res.redirect("/");
   });
 
@@ -24,13 +28,18 @@ module.exports = (app) => {
 
     let login = await Atendente.buscarLogin(email, senha);
 
-    console.log(login);
-    console.log(email + " " + senha);
-
     if (email.length && senha.length) {
+      let usuarioLogando = login[0];
+
       if (!login.length) {
         res.redirect("/?erro=" + "nao foi possivel altenticar");
       } else {
+        funcoes.inserirUsuarioLogado(login);
+        Logados.inserirUsuarioLogado({
+          atendente: usuarioLogando.nome,
+          status: "logado",
+          id_atendente: usuarioLogando.id,
+        });
         res.redirect("/home");
       }
     } else {
