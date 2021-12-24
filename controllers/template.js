@@ -41,25 +41,4 @@ module.exports = (app) => {
   app.get("/home", function (req, res) {
     res.render("pages/home");
   });
-
-  app.get("/atendentes", async function (req, res) {
-    let todosAtendentes = await Atendente.buscarTodosAtendentes();
-    console.log(todosAtendentes.length);
-
-    res.render("pages/atendentes", {
-      atendente: todosAtendentes,
-      registros: todosAtendentes.length,
-    });
-  });
-
-  app.post("/atendentes-cadastrar", async function (req, res) {
-    console.log(req.query);
-    await Atendente.cadastrarAtendente(req.query);
-
-    res.status(200).json("cadastro feito com sucesso");
-  });
-
-  app.get("/:id", async function (req, res) {
-    res.render("pages/perfil", { id: req.params.id });
-  });
 };

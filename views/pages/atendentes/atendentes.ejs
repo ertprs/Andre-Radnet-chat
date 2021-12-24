@@ -1,4 +1,4 @@
-<%- include('../layout-header'); -%>
+<%- include('../../layout-header'); -%>
 
     <div class="row justify-content-center">
 
@@ -182,5 +182,8 @@
 
     </div>
 
-
-    <%- include('../layout-footer'); -%>
+    <script type="text/javascript">
+        const ip_servidor = "<%= ip_servidor %>";
+    </script>
+    <script type="module" src="assets/js/atendente/main.js"></script>
+    <%- include('../../layout-footer'); -%>

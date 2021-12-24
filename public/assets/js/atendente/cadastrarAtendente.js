@@ -11,7 +11,7 @@ export function cadastrarAtendente() {
     console.log(setor);
 
     var settings = {
-      url: `http://localhost:3000/atendentes-cadastrar?nome=${nome}&sobrenome=${sobrenome}&email=${email}&senha=${senha}&nivel_acesso=${setor}`,
+      url: `${ip_servidor}/atendentes-cadastrar?nome=${nome}&sobrenome=${sobrenome}&email=${email}&senha=${senha}&nivel_acesso=${setor}`,
       method: "POST",
       timeout: 0,
     };
