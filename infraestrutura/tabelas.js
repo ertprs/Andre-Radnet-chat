@@ -11,8 +11,17 @@ class Tabelas {
   }
 
   criarChat() {
-    const sql =
-      "CREATE TABLE IF NOT EXISTS chat (id int NOT NULL AUTO_INCREMENT, session varchar(255), from_number varchar(45),to_number varchar(45), content varchar(4000), type varchar(45) , file_name varchar(255),created_at datetime NOT NULL, PRIMARY KEY(id))";
+    const sql = `CREATE TABLE IF NOT EXISTS chat (
+      id int NOT NULL AUTO_INCREMENT,
+      session varchar(255),
+      from_number varchar(45),
+      to_number varchar(45),
+      content varchar(4000), 
+      type varchar(45) ,
+      file_name varchar(255),
+      created_at datetime NOT NULL,
+      id_protocolo varchar(50),
+      PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
@@ -52,6 +61,8 @@ class Tabelas {
       email varchar(255),
       empresa varchar(255),
       protocolo varchar(255),
+      situacao varchar(50),
+      canal varchar(50),
       PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {

@@ -3,6 +3,7 @@ const funcoes = require("../funcoes/funcoes");
 const Mensagens = require("../models/Mensagens");
 const Atendente = require("../models/atendente");
 const Notificacao = require("../models/notificacoes");
+
 require("dotenv").config();
 
 module.exports = (app) => {
@@ -10,27 +11,23 @@ module.exports = (app) => {
   app.get("/chat", function (req, res) {
     console.log("api /chat");
     // informações básicas para carregar o topo da aplicação vindas do dotenv
-    let numeroAtendente = process.env.NUMERO_ATENDENTE;
-    let canal = process.env.CANAL;
-    let protocolo = process.env.PROTOCOLO;
-    let conectado = process.env.TEL_FONE_CONECTADO;
-
     let ip_servidor = process.env.IP_SERVIDOR;
 
     /*
+    let usuario = funcoes.retornarUsuarioLogado();
+    console.log(usuario[0]);
+
+  
     Atendente.buscarAtendente(process.env.ID_USUARIO);
     let atendente = Atendente.retornarAtendente();
     console.log(atendente);
 */
-
+    let canal = 1;
     // passando as informações para o front
     // rederizando o front pelo ejs
     res.render("pages/chat/index", {
-      canal: canal,
-      protocolo: protocolo,
-      numeroAtendente: numeroAtendente,
-      conectado: conectado,
       ip_servidor: ip_servidor,
+      canal: canal,
     });
   });
 

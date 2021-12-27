@@ -4,6 +4,24 @@ import RetornarNumero from "./retornarNumero.js";
 export function renderMessage(message, origem, numero) {
   //fazer o template da mensagem
 
+  console.log(message);
+
+  let data = {
+    dia: moment(message.created_at).format("DD"),
+    mes: moment(message.created_at).format("MM"),
+    ano: moment(message.created_at).format("YYYY"),
+    hora: moment(message.created_at).format("HH"),
+    minutos: moment(message.created_at).format("mm"),
+  };
+
+  let dataMensagem = moment({
+    year: data.ano,
+    month: data.mes - 1,
+    day: data.dia,
+    hour: data.hora,
+    minute: data.minutos,
+  }).fromNow();
+
   let templateYou = `
     <div class='d-flex flex-column align-items-end m-3'>
         <div class="me-3 ms-3 text-light">      ${message.author}</div>
@@ -24,8 +42,8 @@ export function renderMessage(message, origem, numero) {
             </div>
         </div>
         <div class='me-3 ms-3' style='max-width: 50%;'>
-            <span class='text-light' style='margin-top:-10px'>$hora <i
-                class='fas fa-check  '></i></span>
+            <span class='text-light' style='margin-top:-10px'><i
+            class='fas fa-check  '></i>${dataMensagem} </span>
         </div>
     </div>
 `;
@@ -51,7 +69,7 @@ export function renderMessage(message, origem, numero) {
                     </div>
                 </div>
                 <div class='me-3 ms-3' style='max-width: 50%;'>
-                    <span class='text-light' style='margin-top:-10px'>$hora <i class='fas fa-check'></i></span>
+                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check'></i> ${dataMensagem} </span>
                 </div>
             </div>
 `;

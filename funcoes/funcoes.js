@@ -50,26 +50,63 @@ class Funcoes {
         ).then(async (client) => {
           this.whatsapp = client;
 
-          await client.onMessage((event) => {
+          await client.onMessage(async (event) => {
             console.log(event);
 
-            const mensagem = {
-              session: event.session,
-              from_number: event.from,
-              to_number: event.device,
-              content: event.content,
-              type: event.type,
-              created_at: moment
-                .unix(event.timestamp)
-                .format("YYYY-MM-DD HH:mm:ss"),
-            };
+            let dataAtual = moment
+              .unix(event.timestamp)
+              .format("YYYY-MM-DD HH:mm:ss");
 
-            Chat.mensagem(mensagem);
+            let dataProtocolo = moment
+              .unix(event.timestamp)
+              .format("DDMMYYYYHHmmsss");
+
+            let protocolo = await Protocolo.buscarProtocolos(event.from);
+
+            if (!protocolo.length) {
+              await Protocolo.criarProtocolo({
+                nome: null,
+                contato: event.from,
+                email: null,
+                empresa: null,
+                protocolo: dataProtocolo,
+                situacao: "aberto",
+                canal: event.device,
+              });
+            }
+
+            if (!protocolo.length) {
+              const mensagem = {
+                session: event.session,
+                from_number: event.from,
+                to_number: event.device,
+                content: event.content,
+                type: event.type,
+                created_at: dataAtual,
+                id_protocolo: dataProtocolo,
+              };
+
+              Chat.mensagem(mensagem);
+            } else {
+              const mensagem = {
+                session: event.session,
+                from_number: event.from,
+                to_number: event.device,
+                content: event.content,
+                type: event.type,
+                created_at: dataAtual,
+                id_protocolo: protocolo[0].protocolo,
+              };
+
+              Chat.mensagem(mensagem);
+            }
+
             Notificacoes.inserirNotificacao({ fone: event.from });
 
             this.io.sockets.emit("wppMessage", {
               author: event.from,
               message: event.content,
+              horario: event.dataAtual,
             });
 
             console.log(mensagem);
@@ -133,6 +170,7 @@ class Funcoes {
           mensagem.push({
             author: message.from_number,
             message: message.content,
+            data: message.created_at,
           });
 
           console.log(mensagem[i]);

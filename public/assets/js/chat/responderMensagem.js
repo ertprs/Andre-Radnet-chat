@@ -1,3 +1,5 @@
+import { renderResponder } from "./renderResponder.js";
+
 export function responderMensagem() {
   document.querySelectorAll(".responser_message").forEach((item) => {
     item.addEventListener("click", function () {

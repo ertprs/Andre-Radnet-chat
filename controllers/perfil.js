@@ -4,9 +4,12 @@ const funcoes = require("../funcoes/funcoes");
 require("dotenv").config();
 
 module.exports = (app) => {
+  let usuario = null;
+
   app.get("/perfil", async function (req, res) {
     let usuarioLogado = funcoes.retornarUsuarioLogado();
-    console.log(usuarioLogado);
+    this.usuario = usuarioLogado;
+    console.log(usuarioLogado[0]);
     res.redirect("/perfil/" + usuarioLogado[0].id);
   });
 
@@ -15,14 +18,13 @@ module.exports = (app) => {
     res.render("pages/perfil/perfil", {
       id: req.params.id,
       ip_servidor: ip_servidor,
-      usuario: req.query.usuario,
+      usuario: this.usuario,
     });
   });
 
   app.post("/excluir-atendente", async function (req, res) {
     console.log(req.query);
     await Atendente.excluirAtendente(req.query.id);
-
     res.status(200).json("exclusao feito com sucesso");
   });
 };

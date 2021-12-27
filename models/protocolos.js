@@ -2,13 +2,21 @@ const conexao = require("../infraestrutura/conexao");
 
 class Protocolo {
   criarProtocolo(protocolo) {
-    const sql = "INSERT INTO protocolo SET ?";
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = "INSERT INTO protocolo SET ?";
 
-    conexao.query(sql, protocolo, (erro, resultados) => {
-      if (erro) {
-        console.log(erro);
+        conexao.query(sql, protocolo, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          console.log(resultados);
+
+          resolve("protocolo criado com sucesso");
+        });
+      } catch (error) {
+        reject(error);
       }
-      console.log(resultados);
     });
   }
 
@@ -22,10 +30,10 @@ class Protocolo {
             console.log(erro);
           }
           console.log(resultados);
-        });
-        var protocolo = JSON.parse(JSON.stringify(resultados));
+          var protocolo = JSON.parse(JSON.stringify(resultados));
 
-        resolve(protocolo);
+          resolve(protocolo);
+        });
       } catch (error) {
         reject(error);
       }
