@@ -3,6 +3,7 @@ import { renderResponder } from "./renderResponder.js";
 import { mostrarEsconderOpcoes } from "./mostrarEsconderOpcoes.js";
 import { copiarMensagem } from "./copiarMensagem.js";
 import { responderMensagem } from "./responderMensagem.js";
+import { executarAudioRecebimento } from "./executarAudioRecebimento.js";
 
 export default class Socket {
   socket = null;
@@ -70,8 +71,6 @@ export default class Socket {
 
       this.notificacoesBD = BDnotificacoes;
 
-      console.log(this.notificacoesBD);
-
       // notificação
       if (numeroClicado == numeroDestinatario) {
         renderMessage(message, "wppMessage");
@@ -106,6 +105,7 @@ export default class Socket {
           }
         });
       }
+      executarAudioRecebimento();
     });
   }
 

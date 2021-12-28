@@ -35,4 +35,5 @@ esconderNotificacao();
 
 preventF5(ip_servidor, retornar.retornarNumero());
 
+//atualizar essa função
 colocarNotificacoes();

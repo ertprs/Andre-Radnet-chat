@@ -51,8 +51,13 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
 
     document.getElementById("buscar").value = "";
 
-    let audio = new Audio("assets/audios/envio.mp3");
+    let notificacoes = document.querySelector(".notificacoes");
 
-    audio.play();
+    if (notificacoes.classList.contains("text-danger")) {
+    } else {
+      let audio = new Audio("assets/audios/envio.mp3");
+
+      audio.play();
+    }
   });
 }
