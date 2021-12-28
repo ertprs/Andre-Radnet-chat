@@ -3,12 +3,13 @@ const funcoes = require("../funcoes/funcoes");
 const Mensagens = require("../models/Mensagens");
 const Atendente = require("../models/atendente");
 const Notificacao = require("../models/notificacoes");
+const Protocolos = require("../models/protocolos");
 
 require("dotenv").config();
 
 module.exports = (app) => {
   // Rota de carregar o chat
-  app.get("/chat", function (req, res) {
+  app.get("/chat", async function (req, res) {
     console.log("api /chat");
     // informações básicas para carregar o topo da aplicação vindas do dotenv
     let ip_servidor = process.env.IP_SERVIDOR;
@@ -22,12 +23,18 @@ module.exports = (app) => {
     let atendente = Atendente.retornarAtendente();
     console.log(atendente);
 */
+
+    let todasNotificacoes = await Notificacao.contarNotificacoes();
+    console.log(todasNotificacoes);
+
     let canal = 1;
     // passando as informações para o front
     // rederizando o front pelo ejs
     res.render("pages/chat/index", {
       ip_servidor: ip_servidor,
       canal: canal,
+      notificacoes: todasNotificacoes[0],
+      protocolo: null,
     });
   });
 
@@ -85,5 +92,10 @@ module.exports = (app) => {
   app.post("/contarNotificacoes", async function (req, res) {
     let mensagens = await Notificacao.contarNotificacoes();
     res.status(200).json(mensagens);
+  });
+
+  app.post("/buscarProtocolo", async function (req, res) {
+    let protocolo = await Protocolos.buscarProtocolos(req.query.fone);
+    res.status(200).json(protocolo);
   });
 };

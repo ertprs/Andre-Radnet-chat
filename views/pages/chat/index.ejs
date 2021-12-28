@@ -3,15 +3,5 @@
 
         <%- include('barra-conversas'); -%>
 
-            <% if (canal==1) { %>
-                <h2>
-                    <% console.log(canal) %>
-                </h2>
-
-
-
-                <% }else { %>
-                    <%- include('chat'); -%>
-                        <% } %>
-
-                            <%- include('footer'); -%>
+            <%- include('chat'); -%>
+                <%- include('footer'); -%>

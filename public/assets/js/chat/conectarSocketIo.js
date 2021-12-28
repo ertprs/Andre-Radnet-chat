@@ -14,6 +14,7 @@ export default class Socket {
 
     this.socket.on("previousMessages", function (messages) {
       console.log("socket / previousMessages");
+
       const div = $("#mensagens-chat");
       div.empty();
 
@@ -33,16 +34,17 @@ export default class Socket {
     this.socket.on("wppMessage", function (message) {
       console.log("socket / wppmessage");
 
-      let numeroClicado = message.author;
+      let numeroDestinatario = message.author;
 
-      let numeroTela = retornar.retornarNumero();
+      let numeroClicado = retornar.retornarNumero();
 
+      // limpa chat
       const div = $("#conversas-chat");
       div.empty();
 
-      conversas.procurarConversas(ip_servidor);
-      let chatConversas = conversas.retornarValor();
-      conversas.renderConversas(chatConversas);
+      conversas.procurarUltimasConversas(ip_servidor);
+      let chatConversas = conversas.retornarUltimasConversas();
+      conversas.renderUltimasConversas(chatConversas);
       conversas.adicionarEventoConversa(ip_servidor, retornar);
 
       var settings = {
@@ -62,7 +64,7 @@ export default class Socket {
       this.notificacoesBD = BDnotificacoes;
 
       // notificação
-      if (numeroClicado == numeroTela) {
+      if (numeroClicado == numeroDestinatario) {
         renderMessage(message, "wppMessage");
       } else {
         let notificacoes = document.querySelectorAll(".clientesConversa");

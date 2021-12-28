@@ -3,7 +3,7 @@ import RetornarNumero from "./retornarNumero.js";
 export default class Conversas {
   conversas = null;
 
-  procurarConversas(ip_servidor) {
+  procurarUltimasConversas(ip_servidor) {
     let resposta;
 
     var settings = {
@@ -20,7 +20,7 @@ export default class Conversas {
     this.conversas = resposta;
   }
 
-  renderConversas(conversas) {
+  renderUltimasConversas(conversas) {
     let ultimaConversa = [];
     let numerosUnicos = [];
 
@@ -126,11 +126,51 @@ export default class Conversas {
           let resultado = parseInt(valorDiv) + 1;
           item.children[2].children[0].children[0].innerHTML = "";
         }
+
+        /*
+        var settings = {
+          url: `${ip_servidor}/removerNotificacao?fone=${origemDestino.from_number}`,
+          method: "POST",
+          timeout: 0,
+          async: false,
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+        });
+        */
+
+        let protocoloAtendimento;
+
+        var settings = {
+          url: `${ip_servidor}/buscarProtocolo?fone=${origemDestino.from_number}`,
+          method: "POST",
+          timeout: 0,
+          async: false,
+        };
+
+        $.ajax(settings).done(function (response) {
+          protocoloAtendimento = response;
+        });
+
+        console.log(protocoloAtendimento);
+
+        let clienteStrong = document.querySelector("#clienteStrong");
+        clienteStrong.innerHTML = origemDestino.from_number;
+
+        let clienteSmall = document.querySelector("#clienteSmall");
+        clienteSmall.innerHTML = origemDestino.from_number;
+
+        let canalStrong = document.querySelector("#canalStrong");
+        canalStrong.innerHTML = `Canal: ${origemDestino.to_number}`;
+
+        let protocoloSmall = document.querySelector("#protocoloSmall");
+        protocoloSmall.innerHTML = `Protocolo: ${protocoloAtendimento[0].protocolo}`;
       });
     });
   }
 
-  retornarValor() {
+  retornarUltimasConversas() {
     return this.conversas;
   }
 }

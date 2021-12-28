@@ -16,12 +16,13 @@ let conversas = new Conversas();
 //conecta ao websocket
 socket.conectarSocketIo(ip_servidor, conversas, retornar);
 
-esconderChat();
+//esconderChat();
 
 // refatorar codigo front-end
-conversas.procurarConversas(ip_servidor);
-let chatConversas = conversas.retornarValor();
-conversas.renderConversas(chatConversas);
+conversas.procurarUltimasConversas(ip_servidor);
+let chatConversas = conversas.retornarUltimasConversas();
+conversas.renderUltimasConversas(chatConversas);
+console.log(chatConversas + "conversas");
 conversas.adicionarEventoConversa(ip_servidor, retornar);
 
 //retorna a conexão do websocket para usar em outras funções
