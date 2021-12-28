@@ -15,24 +15,9 @@ export function preventF5(ip_servidor, number_fone) {
         $("#corpo").append(windowLoad);
         $("#corpo").append(spinner);
 
-        atualizarTela();
-
-        async function atualizarTela() {
-          var settings = {
-            url: `${ip_servidor}/recuperarMensagens?toNumber=${number_fone}`,
-            method: "POST",
-            timeout: 0,
-            async: false,
-          };
-
-          $.ajax(settings).done(function (response) {
-            console.log(response);
-          });
-
-          setTimeout(function () {
-            removerCarregamento();
-          }, 2000);
-        }
+        setTimeout(function () {
+          removerCarregamento();
+        }, 1000);
 
         async function removerCarregamento() {
           document.getElementById("fundo-branco").remove();

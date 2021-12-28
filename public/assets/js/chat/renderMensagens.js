@@ -74,7 +74,7 @@ export function renderMessage(message, origem, numero) {
             </div>
 `;
 
-  if (message.author == numero.conectado) {
+  if (message.author == numero) {
     $(".mensagens-chat").append(templateYou);
   } else {
     $(".mensagens-chat").append(templeteOther);

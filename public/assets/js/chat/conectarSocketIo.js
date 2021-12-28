@@ -22,7 +22,7 @@ export default class Socket {
         renderMessage(
           messages[index],
           "funcionario",
-          retornar.retornarNumero()
+          retornar.retornarNumero().conectado
         );
       }
 
@@ -36,7 +36,14 @@ export default class Socket {
 
       let numeroDestinatario = message.author;
 
-      let numeroClicado = retornar.retornarNumero();
+      //console.log(retornar.retornarNumero());
+      let numeroClicado = null;
+
+      if (retornar.retornarNumero() === null) {
+        numeroClicado = null;
+      } else {
+        numeroClicado = retornar.retornarNumero().cliente;
+      }
 
       // limpa chat
       const div = $("#conversas-chat");
@@ -63,9 +70,14 @@ export default class Socket {
 
       this.notificacoesBD = BDnotificacoes;
 
+      console.log(this.notificacoesBD);
+
       // notificação
       if (numeroClicado == numeroDestinatario) {
         renderMessage(message, "wppMessage");
+        mostrarEsconderOpcoes();
+        copiarMensagem();
+        responderMensagem();
       } else {
         let notificacoes = document.querySelectorAll(".clientesConversa");
 
@@ -73,7 +85,14 @@ export default class Socket {
           // Por padrão ele vem com o valor 1
 
           for (let index = 0; index < this.notificacoesBD.length; index++) {
-            if (this.notificacoesBD[index].fone == element.id) {
+            const toFromId = element.id.split("-");
+
+            let origemDestino = {
+              from_number: toFromId[0],
+              to_number: toFromId[1],
+            };
+
+            if (this.notificacoesBD[index].fone == origemDestino.from_number) {
               let notify = `   
               <div class="notification-contact">
                   <p class="bg-danger pt-1 pb-1 ps-2 pe-2"
@@ -87,11 +106,6 @@ export default class Socket {
           }
         });
       }
-      // notificação
-
-      mostrarEsconderOpcoes();
-      copiarMensagem();
-      responderMensagem();
     });
   }
 

@@ -13,6 +13,7 @@ class Funcoes {
   io = null;
   base64QR = null;
   usuarioLogado = null;
+  status = null;
 
   conectar(sessao, fone) {
     return new Promise((resolve, reject) => {
@@ -39,16 +40,22 @@ class Funcoes {
             if (statusSession.response == "isLogged") {
               console.log("entrou aqui");
               await Canais.editarStatus("conectado", fone);
+              this.status = "conectado";
               resolve("conectado");
             }
             if (statusSession.response == "isConnected") {
               console.log("entrou aqui");
               await Canais.editarStatus("conectado", fone);
+              this.status = "conectado";
               resolve("conectado");
             }
           }
         ).then(async (client) => {
           this.whatsapp = client;
+
+          if (this.status == "conectado") {
+            client.forceStatusOn();
+          }
 
           await client.onMessage(async (event) => {
             console.log(event);
@@ -148,7 +155,8 @@ class Funcoes {
   logout() {
     console.log("functions logout");
     if (this.whatsapp) {
-      this.whatsapp.logout();
+      //this.whatsapp.logout();
+      this.whatsapp.close();
     }
   }
 

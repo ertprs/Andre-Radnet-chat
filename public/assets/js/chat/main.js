@@ -16,7 +16,7 @@ let conversas = new Conversas();
 //conecta ao websocket
 socket.conectarSocketIo(ip_servidor, conversas, retornar);
 
-//esconderChat();
+esconderChat();
 
 // refatorar codigo front-end
 conversas.procurarUltimasConversas(ip_servidor);

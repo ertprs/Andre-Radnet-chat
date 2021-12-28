@@ -9,6 +9,14 @@ export default class RetornarNumero {
   }
   retornarNumero() {
     console.log(this.atendimento);
-    return this.atendimento;
+
+    if (
+      typeof this.atendimento !== "undefined" ||
+      typeof this.atendimento !== null
+    ) {
+      return this.atendimento;
+    } else {
+      return "undefined";
+    }
   }
 }

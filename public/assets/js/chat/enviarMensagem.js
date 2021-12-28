@@ -12,11 +12,10 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
     var session = "Marketing";
     var type = "chat";
     var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+    var conectado = numberDestino.retornarNumero().conectado;
 
     var settings = {
-      url: `http://${ip_servidor}/retornarSessao?fone=${
-        numberDestino.retornarNumero().conectado
-      }`,
+      url: `${ip_servidor}/retornarSessao?fone=${conectado}`,
       method: "POST",
       timeout: 0,
       async: false,
@@ -36,12 +35,12 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
         session: resposta.nome,
       };
 
-      renderMessage(messageObject);
+      renderMessage(messageObject, "browser", conectado);
       ipSocket.emit("sendMessage", messageObject);
     }
 
     var settings = {
-      url: `http://${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}`,
+      url: `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}`,
       method: "POST",
       timeout: 0,
     };
