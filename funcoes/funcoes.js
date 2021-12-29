@@ -70,9 +70,11 @@ class Funcoes {
 
             let protocolo = await Protocolo.buscarProtocolos(event.from);
 
+            console.log(protocolo);
+
             if (!protocolo.length) {
               await Protocolo.criarProtocolo({
-                nome: null,
+                nome: event.session,
                 contato: event.from,
                 email: null,
                 empresa: null,
@@ -88,7 +90,7 @@ class Funcoes {
                 from_number: event.from,
                 to_number: event.device,
                 content: event.content,
-                type: event.type,
+                type: "chat",
                 created_at: dataAtual,
                 id_protocolo: dataProtocolo,
               };
@@ -100,7 +102,7 @@ class Funcoes {
                 from_number: event.from,
                 to_number: event.device,
                 content: event.content,
-                type: event.type,
+                type: "chat",
                 created_at: dataAtual,
                 id_protocolo: protocolo[0].protocolo,
               };

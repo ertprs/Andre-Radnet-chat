@@ -4,12 +4,14 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
   $("#chat").submit(function (event) {
     event.preventDefault();
 
+    let resposta = null;
+
     console.log(numberDestino.retornarNumero());
 
     var author = numberDestino.retornarNumero().conectado;
     var message = $("input[name=texto]").val();
     var to_number = numberDestino.retornarNumero().cliente;
-    var session = "Marketing";
+
     var type = "chat";
     var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
     var conectado = numberDestino.retornarNumero().conectado;
@@ -21,12 +23,12 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
       async: false,
     };
 
-    let resposta = null;
-
     $.ajax(settings).done(function (response) {
       console.log(response);
       resposta = response;
     });
+
+    var session = resposta.nome;
 
     if (message.length) {
       var messageObject = {
@@ -43,6 +45,7 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
       url: `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}`,
       method: "POST",
       timeout: 0,
+      async: false,
     };
 
     $.ajax(settings).done(function (response) {

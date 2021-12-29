@@ -52,4 +52,10 @@ module.exports = (app) => {
     let canais = await Canais.buscarCanaisAtivos();
     res.status(200).json(canais);
   });
+
+  app.post("/buscarCanais", async function (req, res) {
+    console.log(req.query);
+    let canais = await Canais.buscarCanais();
+    res.status(200).json(canais);
+  });
 };
