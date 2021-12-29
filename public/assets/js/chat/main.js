@@ -8,6 +8,8 @@ import { mensagensInternas } from "./mensagensInternas.js";
 import { esconderNotificacao } from "./esconderNotificacao.js";
 import { esconderChat } from "./esconderChat.js";
 import { colocarNotificacoes } from "./colocarNotificacoes.js";
+import { iniciarNovoAtendimento } from "./iniciarNovoAtendimento.js";
+import { carregarOpcoes } from "./carregarOpcoes.js";
 
 let socket = new Socket();
 let retornar = new RetornarNumero();
@@ -37,3 +39,5 @@ preventF5(ip_servidor, retornar.retornarNumero());
 
 //atualizar essa função
 colocarNotificacoes();
+iniciarNovoAtendimento();
+carregarOpcoes();

@@ -98,4 +98,9 @@ module.exports = (app) => {
     let protocolo = await Protocolos.buscarProtocolos(req.query.fone);
     res.status(200).json(protocolo);
   });
+
+  app.post("/buscarFoneClientes", async function (req, res) {
+    let clientes = await Chat.buscarNumerosClientes();
+    res.status(200).json(clientes);
+  });
 };

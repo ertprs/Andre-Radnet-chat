@@ -46,4 +46,10 @@ module.exports = (app) => {
     let canal = await Canais.retornarSessao(req.query.fone);
     res.status(200).json(canal);
   });
+
+  app.post("/buscarCanaisAtivos", async function (req, res) {
+    console.log(req.query);
+    let canais = await Canais.buscarCanaisAtivos();
+    res.status(200).json(canais);
+  });
 };

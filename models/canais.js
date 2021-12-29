@@ -38,6 +38,26 @@ class Canais {
     });
   }
 
+  buscarCanaisAtivos() {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = "SELECT * FROM canais WHERE status='conectado'";
+
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var canais = JSON.parse(JSON.stringify(resultados));
+          console.log(canais);
+
+          resolve(canais);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   excluirCanal(fone) {
     return new Promise((resolve, reject) => {
       try {

@@ -16,8 +16,8 @@
 
 
 
-            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
-                data-bs-placement="bottom" data-bs-content="Iniciar novo Atendimento">
+            <span class="d-inline-block carregarOpcoes" tabindex="0" data-bs-toggle="popover"
+                data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar novo Atendimento">
                 <span data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fas fa-plus  ms-2 me-2"></i>
                 </span>
@@ -36,18 +36,20 @@
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <select class="form-select" aria-label="Default select example">
+                                    <span>Canal:</span>
+                                    <select class="form-select selectCanal" aria-label="Default select example"
+                                        id="selectCanal">
                                         <option selected>Selecione uma opção</option>
-                                        <option value="1">canal radnet</option>
-                                        <option value="2">canal radnet 2</option>
+
 
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select class="form-select" aria-label="Default select example">
+                                    <span>Enviar para:</span>
+                                    <select class="form-select selectFone" aria-label="Default select example"
+                                        id="selectFone">
                                         <option selected>Selecione uma opção</option>
-                                        <option value="1">primeiro numero</option>
-                                        <option value="2">segundo numero</option>
+
 
                                     </select>
                                 </div>
@@ -64,7 +66,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Enviar</button>
+                            <button type="button" class="btn btn-primary novoAtendimento">Enviar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
