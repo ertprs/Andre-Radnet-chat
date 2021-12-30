@@ -103,4 +103,9 @@ module.exports = (app) => {
     let clientes = await Chat.buscarNumerosClientes();
     res.status(200).json(clientes);
   });
+
+  app.post("/criarProtocolo", async function (req, res) {
+    let protocolo = await Protocolos.criarProtocolo(req.query);
+    res.status(200).json(protocolo);
+  });
 };
