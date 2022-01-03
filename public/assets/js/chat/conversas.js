@@ -1,22 +1,15 @@
 import RetornarNumero from "./retornarNumero.js";
+import { carregarConversas } from "./requisicoesAjax/carregarConversas.js";
+import { recuperarMensagens } from "./requisicoesAjax/recuperarMensagens.js";
+import { removerNotificacao } from "./requisicoesAjax/removerNotificacao.js";
+import { buscarProtocolo } from "./requisicoesAjax/buscarProtocolo.js";
 
 export default class Conversas {
   conversas = null;
 
   procurarUltimasConversas(ip_servidor) {
     let resposta;
-
-    var settings = {
-      url: `${ip_servidor}/carregarConversas`,
-      method: "POST",
-      timeout: 0,
-      async: false,
-    };
-
-    $.ajax(settings).done(function (response) {
-      resposta = response;
-    });
-
+    resposta = carregarConversas(ip_servidor);
     this.conversas = resposta;
   }
 
@@ -94,29 +87,13 @@ export default class Conversas {
           origemDestino.to_number
         );
 
-        var settings = {
-          url: `${ip_servidor}/recuperarMensagens?toNumber=${origemDestino.from_number}&fromNumber=${origemDestino.to_number}`,
-          method: "POST",
-          timeout: 0,
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
+        recuperarMensagens(ip_servidor, origemDestino);
 
         let telaChat = document.querySelector("#tela-chat");
         telaChat.style.visibility = "visible";
 
-        var settings = {
-          url: `${ip_servidor}/removerNotificacao?fone=${origemDestino.from_number}`,
-          method: "POST",
-          timeout: 0,
-          async: false,
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
+        //remover notificacao
+        removerNotificacao(ip_servidor, origemDestino);
 
         $("#buscar").prop("disabled", false);
 
@@ -127,33 +104,10 @@ export default class Conversas {
           item.children[2].children[0].children[0].innerHTML = "";
         }
 
-        /*
-        var settings = {
-          url: `${ip_servidor}/removerNotificacao?fone=${origemDestino.from_number}`,
-          method: "POST",
-          timeout: 0,
-          async: false,
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
-        */
-
         let protocoloAtendimento;
 
-        var settings = {
-          url: `${ip_servidor}/buscarProtocolo?fone=${origemDestino.from_number}`,
-          method: "POST",
-          timeout: 0,
-          async: false,
-        };
-
-        $.ajax(settings).done(function (response) {
-          protocoloAtendimento = response;
-        });
-
-        console.log(protocoloAtendimento);
+        //buscarProtocolo
+        protocoloAtendimento = buscarProtocolo(ip_servidor, origemDestino);
 
         let clienteStrong = document.querySelector("#clienteStrong");
         clienteStrong.innerHTML = origemDestino.from_number;

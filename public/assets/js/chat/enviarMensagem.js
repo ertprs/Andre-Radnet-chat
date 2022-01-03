@@ -1,4 +1,8 @@
 import { renderMessage } from "./renderMensagens.js";
+import { retornarSessao } from "./requisicoesAjax/retornarSessao.js";
+import { buscarProtocolo } from "./requisicoesAjax/buscarProtocolo.js";
+import { criarProtocolo } from "./requisicoesAjax/criarProtocolo.js";
+import { enviarMensagem } from "./requisicoesAjax/enviarMensagem.js";
 
 export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
   $("#chat").submit(function (event) {
@@ -13,107 +17,96 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
     var message = $("input[name=texto]").val();
     var to_number = numberDestino.retornarNumero().cliente;
 
-    var type = "chat";
-    var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
-    var conectado = numberDestino.retornarNumero().conectado;
-    var protocoloNumero = moment(new Date().getTime()).format(
-      "DDMMYYYYHHmmsss"
-    );
+    let mensagensInternas = document.querySelector(".mensagens-internas");
 
-    var settings = {
-      url: `${ip_servidor}/retornarSessao?fone=${conectado}`,
-      method: "POST",
-      timeout: 0,
-      async: false,
-    };
+    let mensagensInternasAtivado =
+      mensagensInternas.classList.contains("ativado");
 
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      resposta = response;
-    });
-
-    var session = resposta[0].nome;
-
-    if (message.length) {
-      var messageObject = {
-        author: conectado,
-        message: message,
-        session: resposta[0].nome,
-      };
-
-      renderMessage(messageObject, "browser", conectado);
-      ipSocket.emit("sendMessage", messageObject);
-    }
-
-    //implementar função de buscar protocolo
-    var settings = {
-      url: `${ip_servidor}/buscarProtocolo?fone=${to_number}`,
-      method: "POST",
-      timeout: 0,
-      async: false,
-    };
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      protocoloCliente = response;
-    });
-
-    console.log(protocoloCliente[0]);
-
-    if (!protocoloCliente.length) {
-      var settings = {
-        url: `${ip_servidor}/criarProtocolo?nome=${session}&contato=${to_number}&email&empresa&protocolo=${protocoloNumero}&situacao="aberto"&canal=${author}`,
-        method: "POST",
-        timeout: 0,
-        async: false,
-      };
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-      });
-
-      var settings = {
-        url: `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}&id_protocolo=${protocoloNumero}`,
-        method: "POST",
-        timeout: 0,
-        async: false,
-      };
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-      });
-
-      document.getElementById("buscar").value = "";
-
-      let notificacoes = document.querySelector(".notificacoes");
-
-      if (notificacoes.classList.contains("text-danger")) {
-      } else {
-        let audio = new Audio("assets/audios/envio.mp3");
-
-        audio.play();
-      }
+    if (mensagensInternasAtivado === true) {
+      console.log("ativado");
     } else {
-      var settings = {
-        url: `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}&id_protocolo=${protocoloCliente[0].protocolo}`,
-        method: "POST",
-        timeout: 0,
-        async: false,
-      };
+      var type = "chat";
+      var created_at = moment(new Date().getTime()).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      var conectado = numberDestino.retornarNumero().conectado;
+      var protocoloNumero = moment(new Date().getTime()).format(
+        "DDMMYYYYHHmmsss"
+      );
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-      });
+      // retornar sessao
+      resposta = retornarSessao(ip_servidor, conectado);
 
-      document.getElementById("buscar").value = "";
+      var session = resposta[0].nome;
 
-      let notificacoes = document.querySelector(".notificacoes");
+      if (message.length) {
+        var messageObject = {
+          author: conectado,
+          message: message,
+          session: resposta[0].nome,
+        };
 
-      if (notificacoes.classList.contains("text-danger")) {
+        renderMessage(messageObject, "browser", conectado);
+        ipSocket.emit("sendMessage", messageObject);
+      }
+
+      protocoloCliente = buscarProtocolo(ip_servidor, to_number);
+
+      if (!protocoloCliente.length) {
+        //criarProtocolo
+
+        criarProtocolo(
+          ip_servidor,
+          session,
+          to_number,
+          protocoloNumero,
+          author
+        );
+
+        // enviar
+        enviarMensagem(
+          ip_servidor,
+          session,
+          author,
+          to_number,
+          message,
+          type,
+          created_at,
+          protocoloNumero
+        );
+
+        document.getElementById("buscar").value = "";
+
+        let notificacoes = document.querySelector(".notificacoes");
+
+        if (notificacoes.classList.contains("text-danger")) {
+        } else {
+          let audio = new Audio("assets/audios/envio.mp3");
+
+          audio.play();
+        }
       } else {
-        let audio = new Audio("assets/audios/envio.mp3");
+        enviarMensagem(
+          ip_servidor,
+          session,
+          author,
+          to_number,
+          message,
+          type,
+          created_at,
+          protocoloCliente[0].protocolo
+        );
 
-        audio.play();
+        document.getElementById("buscar").value = "";
+
+        let notificacoes = document.querySelector(".notificacoes");
+
+        if (notificacoes.classList.contains("text-danger")) {
+        } else {
+          let audio = new Audio("assets/audios/envio.mp3");
+
+          audio.play();
+        }
       }
     }
   });

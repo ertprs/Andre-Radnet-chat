@@ -1,19 +1,10 @@
+import { contarNotificacoes } from "./requisicoesAjax/contarNotificacoes.js";
+
 export function colocarNotificacoes() {
   let notificacoes = document.querySelectorAll(".clientesConversa");
-
-  var settings = {
-    url: `${ip_servidor}/contarNotificacoes`,
-    method: "POST",
-    timeout: 0,
-    async: false,
-  };
-
   let BDnotificacoes;
 
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    BDnotificacoes = response;
-  });
+  BDnotificacoes = contarNotificacoes(ip_servidor);
 
   notificacoes.forEach((element) => {
     for (let index = 0; index < BDnotificacoes.length; index++) {

@@ -4,6 +4,7 @@ import { mostrarEsconderOpcoes } from "./mostrarEsconderOpcoes.js";
 import { copiarMensagem } from "./copiarMensagem.js";
 import { responderMensagem } from "./responderMensagem.js";
 import { executarAudioRecebimento } from "./executarAudioRecebimento.js";
+import { contarNotificacoes } from "./requisicoesAjax/contarNotificacoes.js";
 
 export default class Socket {
   socket = null;
@@ -39,6 +40,7 @@ export default class Socket {
 
       //console.log(retornar.retornarNumero());
       let numeroClicado = null;
+      let BDnotificacoes;
 
       if (retornar.retornarNumero() === null) {
         numeroClicado = null;
@@ -55,19 +57,7 @@ export default class Socket {
       conversas.renderUltimasConversas(chatConversas);
       conversas.adicionarEventoConversa(ip_servidor, retornar);
 
-      var settings = {
-        url: `${ip_servidor}/contarNotificacoes`,
-        method: "POST",
-        timeout: 0,
-        async: false,
-      };
-
-      let BDnotificacoes;
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        BDnotificacoes = response;
-      });
+      BDnotificacoes = contarNotificacoes(ip_servidor);
 
       this.notificacoesBD = BDnotificacoes;
 

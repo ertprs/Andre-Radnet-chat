@@ -1,55 +1,12 @@
-export function carregarOpcoes() {
-  let carregarOpcoes = document.querySelector(".carregarOpcoes");
+import { buscarCanaisAtivos } from "./requisicoesAjax/buscarCanaisAtivos.js";
+import { buscarCanais } from "./requisicoesAjax/buscarCanais.js";
 
+export function carregarOpcoes() {
   let canais = null;
-  let numeros = null;
   let removerCanais = null;
 
-  var settings = {
-    url: `${ip_servidor}/buscarCanaisAtivos`,
-    method: "POST",
-    timeout: 0,
-    async: false,
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    canais = response;
-  });
-
-  var settings = {
-    url: `${ip_servidor}/buscarFoneClientes`,
-    method: "POST",
-    timeout: 0,
-    async: false,
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    numeros = response;
-  });
-
-  var settings = {
-    url: `${ip_servidor}/buscarCanais`,
-    method: "POST",
-    timeout: 0,
-    async: false,
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    removerCanais = response;
-  });
-
-  let numerosFiltrados = [];
-
-  removerCanais.forEach((element) => {
-    numerosFiltrados.push(element.fone);
-  });
-
-  let numerosSemCanal = numeros.filter(
-    (item) => !numerosFiltrados.includes(item.from_number)
-  );
+  canais = buscarCanaisAtivos(ip_servidor);
+  removerCanais = buscarCanais(ip_servidor);
 
   let selectCanais = document.querySelector(".selectCanal");
 
@@ -59,15 +16,5 @@ export function carregarOpcoes() {
        `;
 
     $(selectCanais).append(canaisInserir);
-  });
-
-  let selectFones = document.querySelector(".selectFone");
-
-  numerosSemCanal.forEach((element) => {
-    let fonesInserir = `   
-      <option value="${element.from_number}">${element.from_number}</option>
-       `;
-
-    $(selectFones).append(fonesInserir);
   });
 }
