@@ -3,6 +3,7 @@ import { retornarSessao } from "./requisicoesAjax/retornarSessao.js";
 import { buscarProtocolo } from "./requisicoesAjax/buscarProtocolo.js";
 import { criarProtocolo } from "./requisicoesAjax/criarProtocolo.js";
 import { enviarMensagemAjax } from "./requisicoesAjax/enviarMensagemAjax.js";
+import { enviarMensagemInterna } from "./requisicoesAjax/enviarMensagemInterna.js";
 
 export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
   $("#chat").submit(function (event) {
@@ -22,46 +23,49 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
     let mensagensInternasAtivado =
       mensagensInternas.classList.contains("ativado");
 
-    if (mensagensInternasAtivado === true) {
-      console.log("ativado");
-    } else {
-      var type = "chat";
-      var created_at = moment(new Date().getTime()).format(
-        "YYYY-MM-DD HH:mm:ss"
-      );
-      var conectado = numberDestino.retornarNumero().conectado;
-      var protocoloNumero = moment(new Date().getTime()).format(
-        "DDMMYYYYHHmmsss"
-      );
+    var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+    var conectado = numberDestino.retornarNumero().conectado;
+    var protocoloNumero = moment(new Date().getTime()).format(
+      "DDMMYYYYHHmmsss"
+    );
+    // retornar sessao
+    resposta = retornarSessao(ip_servidor, conectado);
 
-      // retornar sessao
-      resposta = retornarSessao(ip_servidor, conectado);
+    var session = resposta[0].nome;
 
-      var session = resposta[0].nome;
+    if (message.length) {
+      var messageObject = {
+        author: conectado,
+        message: message,
+        session: resposta[0].nome,
+      };
 
-      if (message.length) {
-        var messageObject = {
-          author: conectado,
-          message: message,
-          session: resposta[0].nome,
-        };
+      renderMessage(messageObject, "browser", conectado);
+      ipSocket.emit("sendMessage", messageObject);
+    }
 
-        renderMessage(messageObject, "browser", conectado);
-        ipSocket.emit("sendMessage", messageObject);
-      }
+    protocoloCliente = buscarProtocolo(ip_servidor, to_number);
 
-      protocoloCliente = buscarProtocolo(ip_servidor, to_number);
+    if (!protocoloCliente.length) {
+      //criarProtocolo
 
-      if (!protocoloCliente.length) {
-        //criarProtocolo
+      criarProtocolo(ip_servidor, session, to_number, protocoloNumero, author);
 
-        criarProtocolo(
+      if (mensagensInternasAtivado === true) {
+        var type = "interno";
+        enviarMensagemInterna(
           ip_servidor,
           session,
+          author,
           to_number,
-          protocoloNumero,
-          author
+          message,
+          type,
+          created_at,
+          protocoloNumero
         );
+        //criar função de envio de mensagens internas
+      } else {
+        var type = "chat";
 
         // enviar
         enviarMensagemAjax(
@@ -74,18 +78,36 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
           created_at,
           protocoloNumero
         );
+      }
 
-        document.getElementById("buscar").value = "";
+      document.getElementById("buscar").value = "";
 
-        let notificacoes = document.querySelector(".notificacoes");
+      let notificacoes = document.querySelector(".notificacoes");
 
-        if (notificacoes.classList.contains("text-danger")) {
-        } else {
-          let audio = new Audio("assets/audios/envio.mp3");
-
-          audio.play();
-        }
+      if (notificacoes.classList.contains("text-danger")) {
       } else {
+        let audio = new Audio("assets/audios/envio.mp3");
+
+        audio.play();
+      }
+    } else {
+      if (mensagensInternasAtivado === true) {
+        var type = "interno";
+        enviarMensagemInterna(
+          ip_servidor,
+          session,
+          author,
+          to_number,
+          message,
+          type,
+          created_at,
+          protocoloCliente[0].protocolo
+        );
+        //criar função de envio de mensagens internas
+      } else {
+        var type = "chat";
+
+        // enviar
         enviarMensagemAjax(
           ip_servidor,
           session,
@@ -96,17 +118,17 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
           created_at,
           protocoloCliente[0].protocolo
         );
+      }
 
-        document.getElementById("buscar").value = "";
+      document.getElementById("buscar").value = "";
 
-        let notificacoes = document.querySelector(".notificacoes");
+      let notificacoes = document.querySelector(".notificacoes");
 
-        if (notificacoes.classList.contains("text-danger")) {
-        } else {
-          let audio = new Audio("assets/audios/envio.mp3");
+      if (notificacoes.classList.contains("text-danger")) {
+      } else {
+        let audio = new Audio("assets/audios/envio.mp3");
 
-          audio.play();
-        }
+        audio.play();
       }
     }
   });

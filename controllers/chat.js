@@ -108,4 +108,9 @@ module.exports = (app) => {
     let protocolo = await Protocolos.criarProtocolo(req.query);
     res.status(200).json(protocolo);
   });
+
+  app.post("/enviarMensagemInterna", function (req, res) {
+    Chat.mensagem(req.query);
+    res.status(200).json("mensagem enviada");
+  });
 };

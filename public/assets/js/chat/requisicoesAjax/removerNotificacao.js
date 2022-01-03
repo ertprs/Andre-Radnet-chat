@@ -1,6 +1,6 @@
 export function removerNotificacao(ip_servidor, origemDestino) {
   var settings = {
-    url: `${ip_servidor}/removerNotificacao?fone=${origemDestino.from_number}`,
+    url: `${ip_servidor}/removerNotificacao?fone=${origemDestino}`,
     method: "POST",
     timeout: 0,
     async: false,

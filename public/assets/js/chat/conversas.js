@@ -93,7 +93,7 @@ export default class Conversas {
         telaChat.style.visibility = "visible";
 
         //remover notificacao
-        removerNotificacao(ip_servidor, origemDestino);
+        removerNotificacao(ip_servidor, origemDestino.from_number);
 
         $("#buscar").prop("disabled", false);
 
@@ -107,7 +107,10 @@ export default class Conversas {
         let protocoloAtendimento;
 
         //buscarProtocolo
-        protocoloAtendimento = buscarProtocolo(ip_servidor, origemDestino);
+        protocoloAtendimento = buscarProtocolo(
+          ip_servidor,
+          origemDestino.from_number
+        );
 
         let clienteStrong = document.querySelector("#clienteStrong");
         clienteStrong.innerHTML = origemDestino.from_number;
