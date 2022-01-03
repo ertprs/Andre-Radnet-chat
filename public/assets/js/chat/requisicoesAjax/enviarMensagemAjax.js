@@ -1,4 +1,4 @@
-export function enviarMensagem(
+export function enviarMensagemAjax(
   ip_servidor,
   session,
   author,

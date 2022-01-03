@@ -1,5 +1,5 @@
 import { retornarSessao } from "./requisicoesAjax/retornarSessao.js";
-import { enviarMensagem } from "./requisicoesAjax/enviarMensagem.js";
+import { enviarMensagemAjax } from "./requisicoesAjax/enviarMensagemAjax.js";
 
 export function iniciarNovoAtendimento() {
   let novoAtendimento = document.querySelector(".novoAtendimento");
@@ -21,7 +21,7 @@ export function iniciarNovoAtendimento() {
       sessao = retornarSessao(ip_servidor, canal);
 
       try {
-        enviarMensagem(
+        enviarMensagemAjax(
           ip_servidor,
           sessao[0].nome,
           canal,

@@ -2,7 +2,7 @@ import { renderMessage } from "./renderMensagens.js";
 import { retornarSessao } from "./requisicoesAjax/retornarSessao.js";
 import { buscarProtocolo } from "./requisicoesAjax/buscarProtocolo.js";
 import { criarProtocolo } from "./requisicoesAjax/criarProtocolo.js";
-import { enviarMensagem } from "./requisicoesAjax/enviarMensagem.js";
+import { enviarMensagemAjax } from "./requisicoesAjax/enviarMensagemAjax.js";
 
 export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
   $("#chat").submit(function (event) {
@@ -64,7 +64,7 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
         );
 
         // enviar
-        enviarMensagem(
+        enviarMensagemAjax(
           ip_servidor,
           session,
           author,
@@ -86,7 +86,7 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
           audio.play();
         }
       } else {
-        enviarMensagem(
+        enviarMensagemAjax(
           ip_servidor,
           session,
           author,
