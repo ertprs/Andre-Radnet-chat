@@ -33,11 +33,79 @@
                 </span>
                 <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
                     data-bs-placement="bottom" data-bs-content="Transferir Atendimento">
-                    <i class="fas fa-exchange-alt  ms-2 me-2"></i>
+                    <span data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                        <i class="fas fa-exchange-alt  ms-2 me-2"></i>
+                    </span>
+
                 </span>
 
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Transferir atendimento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                    class="TransferirAtendimentoBotoes d-flex justify-content-center align-items-center mb-3 mt-2">
+                                    <button type="button" class="btn btn-primary me-3">Pessoa</button>
+                                    <button type="button" class="btn btn-light">Departamento</button>
+                                </div>
+                                <div class="pessoas">
+                                    <p>Selecione a(s) pessoa(s) que deseja destinar o atendimento. A primeira que
+                                        atribuir o atendimento a si, dará continuiedade.</p>
+                                    <div class="">
+                                        <span>Aperte Ctrl ou Command para selecionar mais de uma pessoa</span>
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="inputGroupSelect01">
+                                                <option selected>Choose...</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="departamento">
+                                    <p>Selecione a(s) pessoa(s) que deseja destinar o atendimento. A primeira que
+                                        atribuir o atendimento a si, dará continuiedade.</p>
+                                    <div class="">
+                                        <span>Selecione um departamento</span>
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="inputGroupSelect01">
+                                                <option selected>Choose...</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    Mensagem <sup>(Opcional)</sup>
+                                    <div class="input-group">
+
+                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Transferir</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="dropdown">
-                    <i class="fas fa-ellipsis-v dropdown-toggle ms-2 me-2" data-bs-toggle="dropdown"
+                    <i class="fas fa-ellipsis-v ms-2 me-2 ps-2 pe-2 pt-1 pb-1" data-bs-toggle="dropdown"
                         id="dropdownMenuButton1" aria-expanded="false"></i>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -84,7 +152,7 @@
                         <div class="d-flex justify-content-between">
                             <div class="col-1 d-flex flex-wrap  justify-content-evenly align-items-center">
                                 <div class="dropdown">
-                                    <i class="fas fa-paperclip   dropdown-toggle ms-2 me-2" data-bs-toggle="dropdown"
+                                    <i class="fas fa-paperclip ms-2 me-2 ps-2 pe-2 pt-1 pb-1" data-bs-toggle="dropdown"
                                         id="dropdownMenuButton1" aria-expanded="false"></i>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li><a class="dropdown-item" href="#">Contato</a></li>
