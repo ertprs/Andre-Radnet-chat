@@ -29,6 +29,8 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
       "DDMMYYYYHHmmsss"
     );
     // retornar sessao
+    console.log(conectado);
+
     resposta = retornarSessao(ip_servidor, conectado);
 
     var session = resposta[0].nome;

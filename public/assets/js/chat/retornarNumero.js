@@ -8,8 +8,6 @@ export default class RetornarNumero {
     };
   }
   retornarNumero() {
-    console.log(this.atendimento);
-
     if (
       typeof this.atendimento !== "undefined" ||
       typeof this.atendimento !== null

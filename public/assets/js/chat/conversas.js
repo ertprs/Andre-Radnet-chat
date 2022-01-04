@@ -3,6 +3,7 @@ import { carregarConversas } from "./requisicoesAjax/carregarConversas.js";
 import { recuperarMensagens } from "./requisicoesAjax/recuperarMensagens.js";
 import { removerNotificacao } from "./requisicoesAjax/removerNotificacao.js";
 import { buscarProtocolo } from "./requisicoesAjax/buscarProtocolo.js";
+import { buscarCanais } from "./requisicoesAjax/buscarCanais.js";
 
 export default class Conversas {
   conversas = null;
@@ -17,30 +18,55 @@ export default class Conversas {
     let ultimaConversa = [];
     let numerosUnicos = [];
 
+    // teste
+
+    let canaisBuscados = buscarCanais(ip_servidor);
+    let contem = [];
+
+    canaisBuscados.forEach((element) => {
+      contem.push(element.fone);
+    });
+
+    console.log(contem);
+
+    //fim teste
+
     conversas.forEach((element) => {
       if (
         numerosUnicos.includes(element.from_number + element.to_number) ||
         numerosUnicos.includes(element.to_number + element.from_number)
       ) {
         for (let index = 0; index < ultimaConversa.length; index++) {
-          if (
-            ultimaConversa[index].id < element.id &&
-            ultimaConversa[index].from_number == element.from_number
-          ) {
-            ultimaConversa[index].content = element.content;
+          if (contem.includes(element.from_number)) {
+            if (
+              ultimaConversa[index].id < element.id &&
+              ultimaConversa[index].from_number == element.from_number //aki
+            ) {
+              ultimaConversa[index].content = element.content;
+            }
+          } else {
+            if (
+              ultimaConversa[index].id < element.id &&
+              ultimaConversa[index].from_number == element.to_number //aki
+            ) {
+              ultimaConversa[index].content = element.content;
+            }
           }
         }
       } else {
         numerosUnicos.push(element.from_number + element.to_number);
+
         ultimaConversa.push({
           id: element.id,
-          from_number: element.from_number,
+          from_number: element.from_number, //aki
           to_number: element.to_number,
           content: element.content,
           created_at: moment(element.created_at).format("DD-MM-YYYY HH:mm"),
         });
       }
     });
+
+    console.log(ultimaConversa);
 
     ultimaConversa.forEach((element) => {
       let templateConversa = `
@@ -77,10 +103,29 @@ export default class Conversas {
       item.addEventListener("click", function () {
         const toFromId = item.id.split("-");
 
-        let origemDestino = {
-          from_number: toFromId[0],
-          to_number: toFromId[1],
-        };
+        let canaisBuscados = buscarCanais(ip_servidor);
+
+        let contem = null;
+
+        let origemDestino = null;
+
+        canaisBuscados.forEach((element) => {
+          if (element.fone == toFromId[0]) {
+            contem = "ok";
+          }
+        });
+
+        if (contem == "ok") {
+          origemDestino = {
+            from_number: toFromId[1],
+            to_number: toFromId[0],
+          };
+        } else {
+          origemDestino = {
+            from_number: toFromId[0],
+            to_number: toFromId[1],
+          };
+        }
 
         retornar.pegarNumero(
           origemDestino.from_number,

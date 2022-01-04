@@ -4,8 +4,6 @@ import RetornarNumero from "./retornarNumero.js";
 export function renderMessage(message, origem, numero, tipo) {
   //fazer o template da mensagem
 
-  console.log(message);
-
   let data = {
     dia: moment(message.created_at).format("DD"),
     mes: moment(message.created_at).format("MM"),
@@ -25,11 +23,10 @@ export function renderMessage(message, origem, numero, tipo) {
   if (tipo == "interna") {
     let templateYou = `
     <div class='d-flex flex-column align-items-end m-3'>
-        <div class="me-3 ms-3 text-light">      ${message.author}</div>
         <div class='d-flex flex-row-reverse align-items-start justify-content-start opcoes-conversa'>
-            <div class='text-wrap' style="background-color: #a7a7a0;border-radius: 10px;padding: 16px;text-align: justify; ">
-          
-            ${message.message}<br>
+            <div class='text-wrap text-end' style="background-color: #a7a7a0;border-radius: 10px;padding:  4px 16px 16px 16px;text-align: justify; ">
+          <span style="font-size:12px;color:white;">De: ${message.author}</span><br>
+          <strong> ${message.message}</strong><br>
                 <sub style="font-size:10px;color:white;">mensagem interna</sub>
             </div>
             <div class='botoes'>
@@ -46,18 +43,19 @@ export function renderMessage(message, origem, numero, tipo) {
         </div>
         <div class='me-3 ms-3' style='max-width: 50%;'>
             <span class='text-light' style='margin-top:-10px'><i
-            class='fas fa-check  '></i>${dataMensagem} </span>
+            class='fas fa-check pe-2'></i>${dataMensagem} </span>
         </div>
     </div>
 `;
 
     let templeteOther = `
             <div class='d-flex flex-column align-items-start m-3'>
-                <div class="me-3 ms-3 text-light">${message.author}</div>
+            
                 <div class='d-flex align-items-start justify-content-start opcoes-conversa'>
-                <div class='text-wrap' style="background-color: #a7a7a0;border-radius: 10px;padding: 16px;text-align: justify; ">
-                        ${message.message}<br>
-                        <sub style="font-size:8px">mensagem interna</sub>
+                <div class='text-wrap text-start' style="background-color: #a7a7a0;border-radius: 10px;padding: 16px;text-align: justify; ">
+                <span style="font-size:12px;color:white;">De: ${message.author}</span><br>
+                       <strong> ${message.message}</strong><br>
+                        <sub style="font-size:10px">mensagem interna</sub>
                     </div>
                     <div class='botoes'>
 
@@ -73,7 +71,7 @@ export function renderMessage(message, origem, numero, tipo) {
                     </div>
                 </div>
                 <div class='me-3 ms-3' style='max-width: 50%;'>
-                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check'></i> ${dataMensagem} </span>
+                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> ${dataMensagem} </span>
                 </div>
             </div>
 `;
@@ -85,10 +83,10 @@ export function renderMessage(message, origem, numero, tipo) {
   } else {
     let templateYou = `
     <div class='d-flex flex-column align-items-end m-3'>
-        <div class="me-3 ms-3 text-light">      ${message.author}</div>
-        <div class='d-flex flex-row-reverse align-items-start justify-content-start opcoes-conversa'>
-            <div class='fundo-text text-wrap'>
-                ${message.message}
+           <div class='d-flex flex-row-reverse align-items-start justify-content-start opcoes-conversa'>
+            <div class='fundo-text text-wrap text-end'>
+            <sub style="font-size:10px;">De: ${message.author}</sub><br>
+                <strong>${message.message}</strong>
             </div>
             <div class='botoes'>
                 <div class='dropdown'>
@@ -104,17 +102,17 @@ export function renderMessage(message, origem, numero, tipo) {
         </div>
         <div class='me-3 ms-3' style='max-width: 50%;'>
             <span class='text-light' style='margin-top:-10px'><i
-            class='fas fa-check  '></i>${dataMensagem} </span>
+            class='fas fa-check  pe-2'></i>${dataMensagem} </span>
         </div>
     </div>
 `;
 
     let templeteOther = `
             <div class='d-flex flex-column align-items-start m-3'>
-                <div class="me-3 ms-3 text-light">${message.author}</div>
-                <div class='d-flex align-items-start justify-content-start opcoes-conversa'>
-                    <div class='fundo-text text-wrap'>
-                        ${message.message}
+                    <div class='d-flex align-items-start justify-content-start opcoes-conversa'>
+                    <div class='fundo-text text-wrap text-start'>
+                    <sub style="font-size:10px;">De: ${message.author}</sub><br>
+                    <strong>${message.message}</strong>
                     </div>
                     <div class='botoes'>
 
@@ -130,7 +128,7 @@ export function renderMessage(message, origem, numero, tipo) {
                     </div>
                 </div>
                 <div class='me-3 ms-3' style='max-width: 50%;'>
-                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check'></i> ${dataMensagem} </span>
+                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> ${dataMensagem} </span>
                 </div>
             </div>
 `;

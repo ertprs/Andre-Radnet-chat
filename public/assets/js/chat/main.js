@@ -24,7 +24,6 @@ esconderChat();
 conversas.procurarUltimasConversas(ip_servidor);
 let chatConversas = conversas.retornarUltimasConversas();
 conversas.renderUltimasConversas(chatConversas);
-console.log(chatConversas + "conversas");
 conversas.adicionarEventoConversa(ip_servidor, retornar);
 
 //retorna a conexão do websocket para usar em outras funções

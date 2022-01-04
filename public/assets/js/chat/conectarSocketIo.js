@@ -21,7 +21,6 @@ export default class Socket {
       div.empty();
 
       for (let index = 0; index < messages.length; index++) {
-        console.log(messages[index]);
         renderMessage(
           messages[index],
           "funcionario",
@@ -78,12 +77,7 @@ export default class Socket {
           for (let index = 0; index < this.notificacoesBD.length; index++) {
             const toFromId = element.id.split("-");
 
-            let origemDestino = {
-              from_number: toFromId[0],
-              to_number: toFromId[1],
-            };
-
-            if (this.notificacoesBD[index].fone == origemDestino.from_number) {
+            if (toFromId.includes(this.notificacoesBD[index].fone)) {
               let notify = `   
               <div class="notification-contact">
                   <p class="bg-danger pt-1 pb-1 ps-2 pe-2"

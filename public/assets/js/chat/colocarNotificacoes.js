@@ -8,7 +8,12 @@ export function colocarNotificacoes() {
 
   notificacoes.forEach((element) => {
     for (let index = 0; index < BDnotificacoes.length; index++) {
-      if (BDnotificacoes[index].fone == element.id) {
+      console.log(element.id);
+      console.log(BDnotificacoes[index].fone);
+
+      let toFromId = element.id.split("-");
+
+      if (toFromId.includes(BDnotificacoes[index].fone)) {
         let notify = `   
           <div class="notification-contact">
               <p class="bg-danger pt-1 pb-1 ps-2 pe-2"
