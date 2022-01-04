@@ -1,5 +1,6 @@
 import { retornarSessao } from "./requisicoesAjax/retornarSessao.js";
 import { enviarMensagemAjax } from "./requisicoesAjax/enviarMensagemAjax.js";
+import { criarProtocolo } from "./requisicoesAjax/criarProtocolo.js";
 
 export function iniciarNovoAtendimento() {
   let novoAtendimento = document.querySelector(".novoAtendimento");
@@ -10,6 +11,7 @@ export function iniciarNovoAtendimento() {
     let fone = $("#inputFone").val();
     let texto = $("#floatingTextarea2").val();
     let created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+    let protocolo = moment(new Date().getTime()).format("YYYYMMDDHHmmsss");
 
     if (
       canal == "Selecione uma opção" ||
@@ -19,6 +21,9 @@ export function iniciarNovoAtendimento() {
       toastr.error(`Complete com todas as informações do formulário`);
     } else {
       sessao = retornarSessao(ip_servidor, canal);
+      let data = created_at;
+      let id_protocolo = protocolo;
+      criarProtocolo(ip_servidor, sessao[0].nome, fone, id_protocolo, canal);
 
       try {
         enviarMensagemAjax(
@@ -27,7 +32,9 @@ export function iniciarNovoAtendimento() {
           canal,
           fone,
           texto,
-          created_at
+          "chat",
+          data,
+          id_protocolo
         );
       } catch (error) {
         console.log("erro no envio");
