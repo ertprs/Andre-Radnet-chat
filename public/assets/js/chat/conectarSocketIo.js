@@ -21,10 +21,12 @@ export default class Socket {
       div.empty();
 
       for (let index = 0; index < messages.length; index++) {
+        console.log(messages[index]);
         renderMessage(
           messages[index],
           "funcionario",
-          retornar.retornarNumero().conectado
+          retornar.retornarNumero().conectado,
+          messages[index].type
         );
       }
 

@@ -33,17 +33,6 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
 
     var session = resposta[0].nome;
 
-    if (message.length) {
-      var messageObject = {
-        author: conectado,
-        message: message,
-        session: resposta[0].nome,
-      };
-
-      renderMessage(messageObject, "browser", conectado);
-      ipSocket.emit("sendMessage", messageObject);
-    }
-
     protocoloCliente = buscarProtocolo(ip_servidor, to_number);
 
     if (!protocoloCliente.length) {
@@ -92,7 +81,7 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
       }
     } else {
       if (mensagensInternasAtivado === true) {
-        var type = "interno";
+        var type = "interna";
         enviarMensagemInterna(
           ip_servidor,
           session,
@@ -118,6 +107,17 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
           created_at,
           protocoloCliente[0].protocolo
         );
+      }
+
+      if (message.length) {
+        var messageObject = {
+          author: conectado,
+          message: message,
+          session: resposta[0].nome,
+        };
+
+        renderMessage(messageObject, "browser", conectado, type);
+        ipSocket.emit("sendMessage", messageObject);
       }
 
       document.getElementById("buscar").value = "";

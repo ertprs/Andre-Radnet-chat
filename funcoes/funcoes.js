@@ -181,6 +181,7 @@ class Funcoes {
             author: message.from_number,
             message: message.content,
             data: message.created_at,
+            type: message.type,
           });
 
           console.log(mensagem[i]);
