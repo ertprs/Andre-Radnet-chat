@@ -20,4 +20,9 @@ module.exports = (app) => {
 
     res.status(200).json("cadastro feito com sucesso");
   });
+
+  app.post("/buscarTodosAtendentes", async function (req, res) {
+    let todosAtendentes = await Atendente.buscarTodosAtendentes();
+    res.status(200).json(todosAtendentes);
+  });
 };

@@ -10,6 +10,8 @@ import { esconderChat } from "./esconderChat.js";
 import { colocarNotificacoes } from "./colocarNotificacoes.js";
 import { iniciarNovoAtendimento } from "./iniciarNovoAtendimento.js";
 import { carregarOpcoes } from "./carregarOpcoes.js";
+import { transferirAtendimentoButoes } from "./transferirAtendimentoBotoes.js";
+import { transferirAtendimento } from "./transferirAtendimento.js";
 
 let socket = new Socket();
 let retornar = new RetornarNumero();
@@ -40,3 +42,5 @@ preventF5(ip_servidor, retornar.retornarNumero());
 colocarNotificacoes();
 iniciarNovoAtendimento();
 carregarOpcoes();
+transferirAtendimentoButoes(ip_servidor);
+transferirAtendimento();

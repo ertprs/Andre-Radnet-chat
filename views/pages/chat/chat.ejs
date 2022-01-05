@@ -52,50 +52,30 @@
                             <div class="modal-body">
                                 <div
                                     class="TransferirAtendimentoBotoes d-flex justify-content-center align-items-center mb-3 mt-2">
-                                    <button type="button" class="btn btn-primary me-3">Pessoa</button>
-                                    <button type="button" class="btn btn-light">Departamento</button>
+                                    <button type="button" class="btn btn-primary me-3" id="botaoPessoa">Pessoa</button>
+                                    <button type="button" class="btn btn-light"
+                                        id="botaoDepartamento">Departamento</button>
                                 </div>
-                                <div class="pessoas">
-                                    <p>Selecione a(s) pessoa(s) que deseja destinar o atendimento. A primeira que
-                                        atribuir o atendimento a si, dará continuiedade.</p>
-                                    <div class="">
-                                        <span>Aperte Ctrl ou Command para selecionar mais de uma pessoa</span>
-                                        <div class="input-group mb-3">
-                                            <select class="form-select" id="inputGroupSelect01">
-                                                <option selected>Choose...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="modalPessoa">
+
+
                                 </div>
-                                <div class="departamento">
-                                    <p>Selecione a(s) pessoa(s) que deseja destinar o atendimento. A primeira que
-                                        atribuir o atendimento a si, dará continuiedade.</p>
-                                    <div class="">
-                                        <span>Selecione um departamento</span>
-                                        <div class="input-group mb-3">
-                                            <select class="form-select" id="inputGroupSelect01">
-                                                <option selected>Choose...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="modalDepartamento">
+
+
                                 </div>
                                 <div class="">
                                     Mensagem <sup>(Opcional)</sup>
                                     <div class="input-group">
 
-                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                        <textarea class="form-control" aria-label="With textarea"
+                                            id="mensagemTransferencia"></textarea>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Transferir</button>
+                                <button type="button" class="btn btn-primary" id="btnTransferir">Transferir</button>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
 

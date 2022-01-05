@@ -8,6 +8,7 @@ class Tabelas {
     this.criarNotificacoes();
     this.criarCanais();
     this.criarLogados();
+    this.criarDepartamentos();
   }
 
   criarChat() {
@@ -125,6 +126,23 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela logados criada com sucesso");
+      }
+    });
+  }
+
+  criarDepartamentos() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS departamentos(
+      id int NOT NULL AUTO_INCREMENT,
+      departamento varchar(255),  
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela departamentos criada com sucesso");
       }
     });
   }
