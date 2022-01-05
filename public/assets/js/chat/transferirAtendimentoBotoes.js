@@ -19,7 +19,7 @@ export function transferirAtendimentoButoes(ip_servidor) {
           <span>Aperte Ctrl ou Command para selecionar mais de uma pessoa</span>
           <div class="input-group mb-3">
               <select class="form-select" id="inputGroupSelect01">
-                  <option selected>Choose...</option>
+                  <option value="" selected>Selecione...</option>
               </select>
           </div>
       </div>
@@ -34,7 +34,7 @@ export function transferirAtendimentoButoes(ip_servidor) {
         <span>Selecione um departamento</span>
         <div class="input-group mb-3">
  <select class="form-select" id="inputGroupSelect01">
- <option selected>Choose...</option>
+ <option value="" selected>Selecione...</option>
  </select>
  </div>
  </div>

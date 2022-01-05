@@ -4,6 +4,7 @@ const Mensagens = require("../models/Mensagens");
 const Atendente = require("../models/atendente");
 const Notificacao = require("../models/notificacoes");
 const Protocolos = require("../models/protocolos");
+const transferenciaAtendimento = require("../models/transferenciaAtendimento");
 
 require("dotenv").config();
 
@@ -112,5 +113,10 @@ module.exports = (app) => {
   app.post("/enviarMensagemInterna", function (req, res) {
     Chat.mensagem(req.query);
     res.status(200).json("mensagem enviada");
+  });
+
+  app.post("/transferirAtendimento", function (req, res) {
+    transferenciaAtendimento.criarTransferenciaAtendimento(req.query);
+    res.status(200).json("transferencia feita com sucesso");
   });
 };

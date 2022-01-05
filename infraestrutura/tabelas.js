@@ -9,6 +9,7 @@ class Tabelas {
     this.criarCanais();
     this.criarLogados();
     this.criarDepartamentos();
+    this.criarTransferenciaAtendimento();
   }
 
   criarChat() {
@@ -143,6 +144,27 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela departamentos criada com sucesso");
+      }
+    });
+  }
+
+  criarTransferenciaAtendimento() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS transferenciaAtendimento(
+      id int NOT NULL AUTO_INCREMENT,
+      cliente varchar(255),  
+      requerente varchar(255),  
+      destino varchar(255),
+      mensagem varchar(4000),
+      status varchar(255),  
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela transferenciaAtendimento criada com sucesso");
       }
     });
   }

@@ -43,4 +43,4 @@ colocarNotificacoes();
 iniciarNovoAtendimento();
 carregarOpcoes();
 transferirAtendimentoButoes(ip_servidor);
-transferirAtendimento();
+transferirAtendimento(ip_servidor, retornar);
