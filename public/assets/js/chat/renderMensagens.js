@@ -4,14 +4,18 @@ import RetornarNumero from "./retornarNumero.js";
 export function renderMessage(message, origem, numero, tipo) {
   //fazer o template da mensagem
 
+  /*
   let data = {
-    dia: moment(message.created_at).format("DD"),
-    mes: moment(message.created_at).format("MM"),
-    ano: moment(message.created_at).format("YYYY"),
-    hora: moment(message.created_at).format("HH"),
-    minutos: moment(message.created_at).format("mm"),
+    dia: moment(message.data).format("DD"),
+    mes: moment(message.data).format("MM"),
+    ano: moment(message.data).format("YYYY"),
+    hora: moment(message.data).format("HH"),
+    minutos: moment(message.data).format("mm"),
   };
+  */
 
+  let dataNomal = moment(message.data).format("DD/MM/YYYY HH:mm");
+  /*
   let dataMensagem = moment({
     year: data.ano,
     month: data.mes - 1,
@@ -19,6 +23,7 @@ export function renderMessage(message, origem, numero, tipo) {
     hour: data.hora,
     minute: data.minutos,
   }).fromNow();
+  */
 
   if (tipo == "interna") {
     let templateYou = `
@@ -43,7 +48,7 @@ export function renderMessage(message, origem, numero, tipo) {
         </div>
         <div class='me-3 ms-3' style='max-width: 50%;'>
             <span class='text-light' style='margin-top:-10px'><i
-            class='fas fa-check pe-2'></i>${dataMensagem} </span>
+            class='fas fa-check pe-2'></i><small>${dataNomal} </small></span>
         </div>
     </div>
 `;
@@ -71,7 +76,7 @@ export function renderMessage(message, origem, numero, tipo) {
                     </div>
                 </div>
                 <div class='me-3 ms-3' style='max-width: 50%;'>
-                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> ${dataMensagem} </span>
+                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> <small>${dataNomal} </small></span>
                 </div>
             </div>
 `;
@@ -102,7 +107,7 @@ export function renderMessage(message, origem, numero, tipo) {
         </div>
         <div class='me-3 ms-3' style='max-width: 50%;'>
             <span class='text-light' style='margin-top:-10px'><i
-            class='fas fa-check  pe-2'></i>${dataMensagem} </span>
+            class='fas fa-check  pe-2'></i><small>${dataNomal} </small></span>
         </div>
     </div>
 `;
@@ -128,7 +133,7 @@ export function renderMessage(message, origem, numero, tipo) {
                     </div>
                 </div>
                 <div class='me-3 ms-3' style='max-width: 50%;'>
-                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> ${dataMensagem} </span>
+                    <span class='text-light' style='margin-top:-10px'><i class='fas fa-check pe-2'></i> <small>${dataNomal} </small> </span>
                 </div>
             </div>
 `;

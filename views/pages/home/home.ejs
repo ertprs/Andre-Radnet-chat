@@ -1,4 +1,4 @@
-<%- include('../layout-header'); -%>
+<%- include('../../layout-header'); -%>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -43,4 +43,6 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <%- include('../layout-footer'); -%>
+    <script>let logado = { id: "<%= id %>", nome: "<%= nome %>" };</script>
+    <script type="module" src="assets/js/home/main.js"></script>
+    <%- include('../../layout-footer'); -%>

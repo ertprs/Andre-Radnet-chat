@@ -4,6 +4,8 @@ const Logados = require("../models/logados");
 require("dotenv").config();
 
 module.exports = (app) => {
+  let logado = null;
+
   app.get("/logout", async function (req, res) {
     funcoes.logout();
     let logado = await funcoes.retornarUsuarioLogado();
@@ -40,6 +42,8 @@ module.exports = (app) => {
           status: "logado",
           id_atendente: usuarioLogando.id,
         });
+        this.logado = { id: usuarioLogando.id, nome: usuarioLogando.nome };
+        console.log(this.logado);
         res.redirect("/home");
       }
     } else {
@@ -48,6 +52,9 @@ module.exports = (app) => {
   });
 
   app.get("/home", function (req, res) {
-    res.render("pages/home");
+    res.render("pages/home/home", {
+      id: this.logado.id,
+      nome: this.logado.nome,
+    });
   });
 };
