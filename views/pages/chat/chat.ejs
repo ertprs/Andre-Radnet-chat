@@ -2,6 +2,7 @@
 
 
 <div class="vh-100 col p-0 m-0" style="position: relative;" id="tela-chat">
+
     <div class="d-flex justify-content-between bg-light">
 
         <div class="d-flex justify-content-center align-items-center">
@@ -92,7 +93,10 @@
                         id="dropdownMenuButton1" aria-expanded="false"></i>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Perfil do Cliente</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal5"
+                                id="perfilCliente">Perfil do
+                                Cliente</a></li>
+
                         <li><a class="dropdown-item" href="#">Atendimentos Anteriores</a></li>
                         <li><a class="dropdown-item" href="#">Enviar para automação</a></li>
                         <li>
@@ -105,11 +109,155 @@
                     </ul>
                 </div>
 
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="d-flex flex-column">
+                                    <h5 class="modal-title" id="exampleModalLabel">Perfil do
+                                        Cliente</h5>
+                                    <small>Atualize as informações</small>
+                                </div>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Informações básicas
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Nome</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="nomeCliente">
+                                                </div>
+
+                                                <div class="input mb-3">
+                                                    <small>Contato</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="contatoCliente">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                Informações adicionais
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>E-mail</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+
+                                                <div class="input mb-3">
+                                                    <small>Empresa</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+
+                                                <div class="input">
+                                                    <small>Anotações</small>
+                                                    <textarea class="form-control"
+                                                        aria-label="With textarea"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                Endereço
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Cep</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Logradouro</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-4">
+                                                        <small>Número</small>
+                                                        <input type="text" class="form-control" aria-label="Username"
+                                                            aria-describedby="basic-addon1">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <small>Bairro</small>
+                                                        <input type="text" class="form-control" aria-label="Username"
+                                                            aria-describedby="basic-addon1">
+                                                    </div>
+
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Complemento</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Cidade</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Estado</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>País</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Salvar</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
 
     </div>
+
 
     <div class="back-chat vh-100" style="overflow-y: scroll" id="back-chat">
 

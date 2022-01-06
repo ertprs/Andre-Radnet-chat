@@ -5,6 +5,8 @@ const Atendente = require("../models/atendente");
 const Notificacao = require("../models/notificacoes");
 const Protocolos = require("../models/protocolos");
 const transferenciaAtendimento = require("../models/transferenciaAtendimento");
+const clientes = require("../models/clientes");
+const cliente_endereco = require("../models/cliente_endereco");
 
 require("dotenv").config();
 
@@ -118,5 +120,22 @@ module.exports = (app) => {
   app.post("/transferirAtendimento", function (req, res) {
     transferenciaAtendimento.criarTransferenciaAtendimento(req.query);
     res.status(200).json("transferencia feita com sucesso");
+  });
+
+  app.post("/atualizarInfoCliente", async function (req, res) {
+    await clientes.atualizarInfoCliente(req.query);
+    res.status(200).json("transferencia feita com sucesso");
+  });
+
+  app.post("/criarClienteEndereco", async function (req, res) {
+    await cliente_endereco.criarClienteEndereco(req.query);
+    res.status(200).json("transferencia feita com sucesso");
+  });
+
+  app.post("/pesquisarEnderecoCliente", async function (req, res) {
+    let enderecoCliente = await cliente_endereco.retornarClienteEndereco(
+      req.query.contato
+    );
+    res.status(200).json(enderecoCliente);
   });
 };

@@ -12,6 +12,7 @@ import { iniciarNovoAtendimento } from "./iniciarNovoAtendimento.js";
 import { carregarOpcoes } from "./carregarOpcoes.js";
 import { transferirAtendimentoButoes } from "./transferirAtendimentoBotoes.js";
 import { transferirAtendimento } from "./transferirAtendimento.js";
+import { carregarInfoClienteModal } from "./carregarInfoClienteModal.js";
 
 let socket = new Socket();
 let retornar = new RetornarNumero();
@@ -44,3 +45,4 @@ iniciarNovoAtendimento();
 carregarOpcoes();
 transferirAtendimentoButoes(ip_servidor);
 transferirAtendimento(ip_servidor, retornar);
+carregarInfoClienteModal(retornar);

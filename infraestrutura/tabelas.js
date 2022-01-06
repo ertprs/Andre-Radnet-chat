@@ -10,6 +10,9 @@ class Tabelas {
     this.criarLogados();
     this.criarDepartamentos();
     this.criarTransferenciaAtendimento();
+    this.criarCliente();
+    this.criarEndereco();
+    this.criarClienteEndereco();
   }
 
   criarChat() {
@@ -165,6 +168,71 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela transferenciaAtendimento criada com sucesso");
+      }
+    });
+  }
+
+  criarCliente() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS clientes(
+      id int NOT NULL AUTO_INCREMENT,
+      nome varchar(255),  
+      contato varchar(255),  
+      email varchar(255),
+      empresa varchar(255),
+      anotacoes varchar(4000), 
+      id_endereco int,
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela cliente criada com sucesso");
+      }
+    });
+  }
+
+  criarEndereco() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS endereco(
+      id int NOT NULL AUTO_INCREMENT,
+      cep varchar(255),  
+      logradouro varchar(255), 
+      numero varchar(255), 
+      bairro varchar(255), 
+      complemento varchar(4000), 
+      cidade varchar(255), 
+      estado varchar(255), 
+      pais varchar(255), 
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela endereco criada com sucesso");
+      }
+    });
+  }
+
+  criarClienteEndereco() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS cliente_endereco(
+      id int NOT NULL AUTO_INCREMENT,
+      id_cliente varchar(255),  
+      id_endereco varchar(255), 
+      contato varchar(255), 
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela cliente_endereco criada com sucesso");
       }
     });
   }
