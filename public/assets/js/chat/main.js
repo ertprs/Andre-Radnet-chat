@@ -45,4 +45,4 @@ iniciarNovoAtendimento();
 carregarOpcoes();
 transferirAtendimentoButoes(ip_servidor);
 transferirAtendimento(ip_servidor, retornar);
-carregarInfoClienteModal(retornar);
+carregarInfoClienteModal(ip_servidor, retornar);

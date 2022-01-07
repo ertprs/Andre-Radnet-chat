@@ -7,6 +7,7 @@ const Protocolos = require("../models/protocolos");
 const transferenciaAtendimento = require("../models/transferenciaAtendimento");
 const clientes = require("../models/clientes");
 const cliente_endereco = require("../models/cliente_endereco");
+const endereco = require("../models/endereco");
 
 require("dotenv").config();
 
@@ -137,5 +138,20 @@ module.exports = (app) => {
       req.query.contato
     );
     res.status(200).json(enderecoCliente);
+  });
+
+  app.post("/criarEndereco", async function (req, res) {
+    let id_endereco = await endereco.criarEndereco(req.query);
+    res.status(200).json(id_endereco);
+  });
+
+  app.post("/pesquisarEndereco", async function (req, res) {
+    let enderecoCliente = await endereco.pesquisarEndereco(req.query.id);
+    res.status(200).json(enderecoCliente);
+  });
+
+  app.post("/pesquisarCliente", async function (req, res) {
+    let clienteChat = await clientes.pesquisarCliente(req.query.contato);
+    res.status(200).json(clienteChat);
   });
 };

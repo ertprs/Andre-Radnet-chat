@@ -18,6 +18,24 @@ class Clientes {
       }
     });
   }
+
+  pesquisarCliente(contato) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `SELECT * FROM clientes WHERE contato=${contato}`;
+
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var cliente = JSON.parse(JSON.stringify(resultados));
+          resolve(cliente);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 module.exports = new Clientes();
