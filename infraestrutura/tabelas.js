@@ -13,6 +13,7 @@ class Tabelas {
     this.criarCliente();
     this.criarEndereco();
     this.criarClienteEndereco();
+    this.criarMensagensSistema();
   }
 
   criarChat() {
@@ -26,6 +27,7 @@ class Tabelas {
       file_name varchar(255),
       created_at datetime NOT NULL,
       id_protocolo varchar(50),
+      status varchar(45),
       PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
@@ -234,6 +236,24 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela cliente_endereco criada com sucesso");
+      }
+    });
+  }
+
+  criarMensagensSistema() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS mensagens_sistema(
+      id int NOT NULL AUTO_INCREMENT,
+      mensagem varchar(255),  
+      tipo varchar(255),  
+      PRIMARY KEY(id) 
+    )
+    `;
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela mensagens_encerramento criada com sucesso");
       }
     });
   }

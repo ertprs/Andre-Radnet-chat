@@ -8,6 +8,7 @@ const transferenciaAtendimento = require("../models/transferenciaAtendimento");
 const clientes = require("../models/clientes");
 const cliente_endereco = require("../models/cliente_endereco");
 const endereco = require("../models/endereco");
+const mensagensSistema = require("../models/mensagensSistema");
 
 require("dotenv").config();
 
@@ -195,5 +196,10 @@ module.exports = (app) => {
       enderecoCliente
     );
     res.status(200).json(atualizacaoEndereco);
+  });
+
+  app.post("/pegarMensagens", async function (req, res) {
+    let mensagem = await mensagensSistema.buscarMensagensSistema(req.query.id);
+    res.status(200).json(mensagem);
   });
 };
