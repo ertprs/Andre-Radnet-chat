@@ -123,14 +123,24 @@ module.exports = (app) => {
     res.status(200).json("transferencia feita com sucesso");
   });
 
-  app.post("/atualizarInfoCliente", async function (req, res) {
-    await clientes.atualizarInfoCliente(req.query);
-    res.status(200).json("transferencia feita com sucesso");
+  app.post("/criarCliente", async function (req, res) {
+    let idCliente = await clientes.criarCliente(req.query);
+    res.status(200).json(idCliente);
   });
 
   app.post("/criarClienteEndereco", async function (req, res) {
     await cliente_endereco.criarClienteEndereco(req.query);
     res.status(200).json("transferencia feita com sucesso");
+  });
+
+  app.post("/atualizarClienteEndereco", async function (req, res) {
+    let id = req.query.id;
+    let contato = { contato: req.query.contato };
+    let clienteChat = await cliente_endereco.atualizarClienteEndereco(
+      id,
+      contato
+    );
+    res.status(200).json(clienteChat);
   });
 
   app.post("/pesquisarEnderecoCliente", async function (req, res) {
@@ -151,7 +161,39 @@ module.exports = (app) => {
   });
 
   app.post("/pesquisarCliente", async function (req, res) {
-    let clienteChat = await clientes.pesquisarCliente(req.query.contato);
+    let clienteChat = await clientes.pesquisarCliente(req.query.id);
     res.status(200).json(clienteChat);
+  });
+
+  app.post("/atualizarCliente", async function (req, res) {
+    let cliente = {
+      nome: req.query.nome,
+      segundoContato: req.query.segundoContato,
+      email: req.query.email,
+      empresa: req.query.empresa,
+      anotacoes: req.query.anotacoes,
+      id_endereco: req.query.id_endereco,
+    };
+    let id = req.query.id;
+    let atualizacaoCliente = await clientes.atualizarCliente(cliente, id);
+    res.status(200).json(atualizacaoCliente);
+  });
+
+  app.post("/atualizarEndereco", async function (req, res) {
+    let enderecoCliente = {
+      cep: req.query.cep,
+      logradouro: req.query.logradouro,
+      numero: req.query.numero,
+      complemento: req.query.complemento,
+      cidade: req.query.cidade,
+      estado: req.query.estado,
+      pais: req.query.pais,
+    };
+    let id = req.query.id;
+    let atualizacaoEndereco = await endereco.atualizarEndereco(
+      id,
+      enderecoCliente
+    );
+    res.status(200).json(atualizacaoEndereco);
   });
 };

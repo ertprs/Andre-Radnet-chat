@@ -1,5 +1,3 @@
-import { buscarEnderecoCepAjax } from "./requisicoesAjax/buscarEnderecoCepAjax.js";
-import { criarEnderecoAjax } from "./requisicoesAjax/criarEnderecoAjax.js";
 import { pesquisarEnderecoClienteAjax } from "./requisicoesAjax/pesquisarEnderecoClienteAjax.js";
 import { pesquisarEnderecoAjax } from "./requisicoesAjax/pesquisarEnderecoAjax.js";
 import { pesquisarClienteAjax } from "./requisicoesAjax/pesquisarClienteAjax.js";
@@ -14,27 +12,6 @@ export function carregarInfoClienteModal(ip_servidor, retornar) {
     );
 
     if (!infoCliente.length) {
-      //criar endereco pegar id
-      //criar cliente pegar id
-      //criar tabela de ligacao e colocar os 2 ides
-      //let endereco = buscarEnderecoCepAjax(cep);
-
-      //console.log($("[name='nomeCliente']").val());
-      /*
-      let = endereco = {
-        cep: ,
-        logradouro: ,
-        numero: ,
-        bairro: ,
-        complemento: ,
-        cidade: ,
-        estado: ,
-        pais: ,
-      };
-      */
-
-      //let id_endereco = criarEnderecoAjax(ip_servidor, endereco);
-
       let nomeCliente = (document.querySelector("[name='nomeCliente']").value =
         retornar.atendimento.cliente);
 
@@ -67,12 +44,16 @@ export function carregarInfoClienteModal(ip_servidor, retornar) {
 
       let cliente = pesquisarClienteAjax(
         ip_servidor,
-        retornar.atendimento.cliente
+        infoCliente[0].id_cliente
       );
+
+      console.log(cliente);
 
       document.querySelector("[name='nomeCliente']").value = cliente[0].nome;
       document.querySelector("[name='contatoCliente']").value =
         cliente[0].contato;
+      document.querySelector("[name='segundoContatoCliente']").value =
+        cliente[0].segundoContato;
       document.querySelector("[name='emailCliente']").value = cliente[0].email;
       document.querySelector("[name='empresaCliente']").value =
         cliente[0].empresa;

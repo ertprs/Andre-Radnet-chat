@@ -1,7 +1,7 @@
-export function pesquisarClienteAjax(ip_servidor, contato) {
+export function pesquisarClienteAjax(ip_servidor, id) {
   let cliente = null;
   var settings = {
-    url: `${ip_servidor}/pesquisarCliente?contato=${contato}`,
+    url: `${ip_servidor}/pesquisarCliente?id=${id}`,
     method: "POST",
     timeout: 0,
     async: false,

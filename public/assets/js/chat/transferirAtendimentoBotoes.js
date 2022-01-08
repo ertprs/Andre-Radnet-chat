@@ -1,7 +1,7 @@
 import { buscarTodosAtendentes } from "./requisicoesAjax/buscarAtendentesCadastrados.js";
 import { buscarDepartamentos } from "./requisicoesAjax/buscarDepartamentos.js";
 
-export function transferirAtendimentoButoes(ip_servidor) {
+export function transferirAtendimentoBotoes(ip_servidor) {
   let btnPessoa = document.querySelector("#botaoPessoa");
   let btnDepartamento = document.querySelector("#botaoDepartamento");
 

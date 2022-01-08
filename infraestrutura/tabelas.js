@@ -178,6 +178,7 @@ class Tabelas {
       id int NOT NULL AUTO_INCREMENT,
       nome varchar(255),  
       contato varchar(255),  
+      segundoContato varchar(255), 
       email varchar(255),
       empresa varchar(255),
       anotacoes varchar(4000), 

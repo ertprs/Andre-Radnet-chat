@@ -19,10 +19,28 @@ class Cliente_Endereco {
     });
   }
 
+  atualizarClienteEndereco(id, contato) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `UPDATE cliente_endereco SET ? WHERE id='${id}'`;
+
+        conexao.query(sql, contato, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+
+          resolve("cliente_endereco atualizado com sucesso");
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   retornarClienteEndereco(contato) {
     return new Promise((resolve, reject) => {
       try {
-        const sql = `SELECT * FROM cliente_endereco WHERE contato=${contato}`;
+        const sql = `SELECT * FROM cliente_endereco WHERE contato='${contato}'`;
 
         conexao.query(sql, (erro, resultados) => {
           if (erro) {

@@ -148,7 +148,7 @@
                                                 <div class="input mb-3">
                                                     <small>Contato</small>
                                                     <input type="text" class="form-control" aria-label="Username"
-                                                        aria-describedby="basic-addon1" name="contatoCliente">
+                                                        aria-describedby="basic-addon1" name="contatoCliente" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,6 +164,11 @@
                                         <div id="collapseTwo" class="accordion-collapse collapse"
                                             aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Segundo contato</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="segundoContatoCliente">
+                                                </div>
                                                 <div class="input mb-3">
                                                     <small>E-mail</small>
                                                     <input type="text" class="form-control" aria-label="Username"
@@ -244,7 +249,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Salvar</button>
+                                <button type="button" class="btn btn-primary" id="salvarInfoCliente">Salvar</button>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
                             </div>
