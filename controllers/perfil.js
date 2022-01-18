@@ -1,5 +1,6 @@
 const Atendente = require("../models/atendente");
 const funcoes = require("../funcoes/funcoes");
+const req = require("express/lib/request");
 
 require("dotenv").config();
 

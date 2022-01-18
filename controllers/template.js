@@ -1,6 +1,7 @@
 const funcoes = require("../funcoes/funcoes");
 const Atendente = require("../models/atendente");
 const Logados = require("../models/logados");
+const session = require("express-session");
 require("dotenv").config();
 
 module.exports = (app) => {
@@ -40,10 +41,11 @@ module.exports = (app) => {
         Logados.inserirUsuarioLogado({
           atendente: usuarioLogando.nome,
           status: "logado",
-          id_atendente: usuarioLogando.id,
+          //id_atendente: usuarioLogando.id,
         });
         this.logado = { id: usuarioLogando.id, nome: usuarioLogando.nome };
-        console.log(this.logado);
+        req.session.id = usuarioLogando.id;
+
         res.redirect("/home");
       }
     } else {

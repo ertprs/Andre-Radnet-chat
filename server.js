@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -8,6 +9,7 @@ const funcoes = require("./funcoes/funcoes");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const consign = require("consign");
+
 require("dotenv").config();
 
 const app = express();
@@ -20,6 +22,10 @@ conexao.connect((erro) => {
     Tabelas.init(conexao);
   }
 });
+
+app.use(
+  session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: 600000 } })
+);
 
 //utilizado para liberar acesso ao servidor
 app.use((req, res, next) => {

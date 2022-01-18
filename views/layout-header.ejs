@@ -75,7 +75,9 @@
                         <!-- <span class="badge badge-danger navbar-badge">3</span> -->
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="/logout" class="dropdown-item">
+
+                        <!--    <a href="/logout" class="dropdown-item" id="logout">  -->
+                        <a href="/logout" class="dropdown-item" onclick="headerController.deslogar()">
                             <i class="fas fa-power-off mr-2" style="color:red"></i><strong> Deslogar</strong>
                             <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
                         </a>
@@ -90,7 +92,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/home" class="brand-link">
                 <img src="assets/img/logo-icon-site-branco.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
@@ -268,3 +270,7 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+        <script src="assets/controllers/HeaderController.js"></script>
+        <script>
+            let headerController = new HeaderController();
+        </script>
