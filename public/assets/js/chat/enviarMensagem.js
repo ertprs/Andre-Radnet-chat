@@ -28,8 +28,6 @@ export function enviarMensagem(numberDestino, ipSocket, ip_servidor) {
     var protocoloNumero = moment(new Date().getTime()).format(
       "DDMMYYYYHHmmsss"
     );
-    // retornar sessao
-    console.log(conectado);
 
     resposta = retornarSessao(ip_servidor, conectado);
 

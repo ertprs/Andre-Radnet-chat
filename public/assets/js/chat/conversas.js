@@ -18,16 +18,12 @@ export default class Conversas {
     let ultimaConversa = [];
     let numerosUnicos = [];
 
-    // teste
-
     let canaisBuscados = buscarCanais(ip_servidor);
     let contem = [];
 
     canaisBuscados.forEach((element) => {
       contem.push(element.fone);
     });
-
-    console.log(contem);
 
     //fim teste
 
@@ -65,8 +61,6 @@ export default class Conversas {
         });
       }
     });
-
-    console.log(ultimaConversa);
 
     ultimaConversa.forEach((element) => {
       let templateConversa = `

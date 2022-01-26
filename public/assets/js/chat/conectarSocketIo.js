@@ -34,6 +34,11 @@ export default class Socket {
       responderMensagem();
     });
 
+    this.socket.on("sendMessage", (data) => {
+      console.log(data);
+      socket.broadcast.emit("receivedMessage", data);
+    });
+
     this.socket.on("wppMessage", function (message) {
       console.log("socket / wppmessage");
 

@@ -33,8 +33,13 @@ conversas.adicionarEventoConversa(ip_servidor, retornar);
 //retorna a conexão do websocket para usar em outras funções
 let ipSocket = socket.retornarSocket();
 
+//
 enviarMensagem(retornar, ipSocket, ip_servidor);
+
+
 recarregarDiv();
+
+
 mensagensInternas();
 esconderNotificacao();
 

@@ -11,8 +11,11 @@ let pegarRetornarCanal = new guardarCanal();
 
 cadastrarCanal(ip_servidor);
 excluirCanal(ip_servidor);
-editarCanal(pegarRetornarCanal);
 confirmarExcluir(ip_servidor);
+editarCanal(pegarRetornarCanal);
 confirmarAtualizar(ip_servidor, pegarRetornarCanal);
+
 desconectar(ip_servidor);
+
+
 qrcode(ip_servidor);
